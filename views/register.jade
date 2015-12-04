@@ -1,0 +1,31 @@
+extends layout
+
+block content
+	h1 Register
+	p please register using the form below
+	ul.errors
+		if errors
+			each error, i in errors
+				li.alert.alert-danger #{error.msg}
+	.row
+		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
+			form(method='post', action='/users/register', enctype='multipart/form-data')
+				.form-group
+					label Name
+					input.form-control(type='text', name='name', placeholder='Enter Name')
+				.form-group
+					label Email
+					input.form-control(type='email', name='email', placeholder='Enter Email')
+				.form-group
+					label Username
+					input.form-control(type='text', name='username', placeholder='Enter Username')
+				.form-group
+					label Password
+					input.form-control(type='password', name='password', placeholder='Enter password')
+				.form-group
+					label Confrm Password
+					input.form-control(type='password', name='password2', placeholder='Confirm password')
+				.form-group
+					label Profile image
+					input.form-control(type='file', name='upl')
+				input.btn.btn-default(name='submit', type='submit', value='Register')
