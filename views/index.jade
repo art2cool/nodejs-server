@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h1 Member Area
+	p Welcome to the member area!
+		if users
+			ul Username
+			each user, i in users
+				li
+					a(href='/users/#{user.username}') #{user.username}
