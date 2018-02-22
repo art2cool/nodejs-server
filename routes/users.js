@@ -28,7 +28,6 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function(r
 	//get Form Value
 	var name = req.body.name;
 	var email = req.body.email;
-	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
@@ -50,19 +49,16 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function(r
 		req.checkBody('name', 'Name field is required').notEmpty();
 		req.checkBody('email', 'Email field is required').notEmpty();
 		req.checkBody('email', 'Email is not valid').isEmail();
-		req.checkBody('username', 'Username field is required').notEmpty();
 		req.checkBody('password',  'Password field is required').notEmpty();
 		req.checkBody('password2','Passwords do not match').equals(req.body.password);
-	
-	
+
 		var errors = req.validationErrors();
-	
+
 		if (errors) {
 			res.render('register',{
 				errors: errors,
 				name: name,
 				email: email,
-				username: username,
 				password: password,
 				password2: password2
 			});
@@ -70,7 +66,6 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function(r
 			var newUser = new User({
 				name: name,
 				email: email,
-				username: username,
 				password: password,
 				profileimage: profileImageOriginalName
 			});
@@ -81,7 +76,7 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function(r
 			});
 			//send message
 			req.flash('success', 'You are now refistered and may log in');
-			
+
 			res.location('/');
 			res.redirect('/');
 		}
@@ -99,12 +94,12 @@ passport.deserializeUser(function(id, done) {
   	});
 });
 
-
-
-
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy({
+	usernameField: 'email'
+},
 	function(username, password, done){
-		User.getUserByUsername(username, function(err, user){
+		console.log(username, password)
+		User.getUserByEmail(username, function(err, user){
 			if(err) throw err;
 			if(!user){
 				console.log('Unknown user');
@@ -118,9 +113,7 @@ passport.use(new LocalStrategy(
 					console.log('invalid password');
 					return done(null, false, {message: 'Invalod password'})
 				}
-
 			})
-			
 		});
 	}
 
@@ -131,7 +124,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/users/
 	console.log('Autentication Succesful');
 	req.flash('success', 'You are logged in');
 	res.redirect('/');
-	
+
 });
 
 router.get('/logout', function(req, res){
@@ -139,20 +132,6 @@ router.get('/logout', function(req, res){
 	req.flash('success', 'You have logged out');
 	res.redirect('/users/login');
 });
-
-router.get('/:username', function(req, res){
-	var username =  req.params.username;
-	User.getUserByUsername(username, function(err, user){
-		if(err) throw err;
-		if(!user){
-			console.log('Unknown user');
-		} else {
-			console.log(user);
-			res.render('user', {user: user});
-		}
-	})
-});
-
 
 module.exports = router;
 

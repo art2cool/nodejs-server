@@ -15,7 +15,6 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
-    "jade": "~1.11.0",
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "~1.6.1",
@@ -23,6 +22,7 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
+    "pug": "latest",
     "serve-favicon": "~2.3.0"
   }
 }

@@ -6,6 +6,7 @@ var User = require('../models/user');
 router.get('/', ensureAuthenticated, function(req, res, next) {
 	User.getAllUsers(function(err, users){
 		if (err) throw err;
+		console.log(users)
 		res.render('index', { title: 'Members', users: users});
 	});
 });
