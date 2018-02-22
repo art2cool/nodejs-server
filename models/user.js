@@ -1,9 +1,5 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
-mongoose.connect('mongodb://localhost/nodeauth');
-
-var db = mongoose.connection;
-
 //User schema
 
 var UserSchema = mongoose.Schema({
