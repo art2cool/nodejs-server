@@ -10,6 +10,9 @@ footer {
 	margin-top: 30px;
 	padding-top: 10px;
 	overflow: auto;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
 textarea {
 	resize: none;

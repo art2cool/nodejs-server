@@ -1,21 +1,20 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { isAuthorized } = require('./../middlwares/auth');
 
-var User = require('../models/user');
+const User = require('../models/user');
 /* GET home page. */
-router.get('/', ensureAuthenticated, function(req, res, next) {
-	User.getAllUsers(function(err, users){
-		if (err) throw err;
-		res.render('index', { title: 'Members', users: users});
-	});
+router.get('/', isAuthorized, function(req, res, next) {
+	User
+		.find({})
+		.then( users => {
+			res.render('index', { title: 'Members', users: users});
+		})
+		.catch(err => {
+			next(err)
+		})
 });
 
 
-function ensureAuthenticated(req, res, next) {
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect('/users/login')
-}
 
 module.exports = router;

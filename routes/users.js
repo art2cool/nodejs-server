@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var multer = require('multer');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 var User = require('../models/user');
 
@@ -24,63 +25,59 @@ router.get('/login', function(req, res, next) {
 	});
 });
 
-router.post('/register', multer({ dest: './uploads/'}).single('upl'), function(req, res, next) {
-	//get Form Value
-	var name = req.body.name;
-	var email = req.body.email;
-	var password = req.body.password;
-	var password2 = req.body.password2;
-
+router.post('/register', multer({ dest: './uploads/'}).single('upl'), function (req, res, next) {
+	const { name, email, password, password2 } = req.body;
 	// Check for Image field
-	if(req.file) {
-		console.log('uploading file...');
+	// if(req.file) {
+	// 	console.log('uploading file...');
 
-		var profileImageOriginalName = req.file.originalname;
-		var profileImageName 		 = req.file.name;
-		var profileImageMine 		 = req.file.mimetype;
-		var profileImagePath 		 = req.file.path;
-		var profileImageExt 		 = req.file.extension;
-		var profileImageSize 		 = req.file.size;
-	} else {
-		// set default img
-		var profileImageName = 'noimage.jpg';
+	// 	var profileImageOriginalName = req.file.originalname;
+	// 	var profileImageName 		 = req.file.name;
+	// 	var profileImageMine 		 = req.file.mimetype;
+	// 	var profileImagePath 		 = req.file.path;
+	// 	var profileImageExt 		 = req.file.extension;
+	// 	var profileImageSize 		 = req.file.size;
+	// } else {
+	// 	// set default img
+	// 	var profileImageName = 'noimage.jpg';
+	// }
+	// form validator
+	req.checkBody('name', 'Name field is required').notEmpty();
+	req.checkBody('email', 'Email field is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('password', 'Password field is required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		console.log(errors)
+		res.render('register', {
+			errors: errors,
+			name: name,
+			email: email,
+			password: password,
+			password2: password2
+		});
+		return;
 	}
-		// form validator
-		req.checkBody('name', 'Name field is required').notEmpty();
-		req.checkBody('email', 'Email field is required').notEmpty();
-		req.checkBody('email', 'Email is not valid').isEmail();
-		req.checkBody('password',  'Password field is required').notEmpty();
-		req.checkBody('password2','Passwords do not match').equals(req.body.password);
-
-		var errors = req.validationErrors();
-
-		if (errors) {
-			res.render('register',{
-				errors: errors,
-				name: name,
-				email: email,
-				password: password,
-				password2: password2
-			});
-		} else {
-			var newUser = new User({
-				name: name,
-				email: email,
-				password: password,
-				profileimage: profileImageOriginalName
-			});
-			// Creqte User
-			User.createUser(newUser, function(err, user){
-				if(err) throw err;
-				console.log(user);
-			});
-			//send message
-			req.flash('success', 'You are now refistered and may log in');
-
-			res.location('/');
-			res.redirect('/');
-		}
-
+	bcrypt.hash(password, 10, (err, hash) => {
+		if (err) throw err;
+		const newUser = new User({
+			name,
+			email,
+			password: hash
+		});
+		newUser
+			.save()
+			.then(user => {
+				//send message
+				req.flash('success', 'You are now refistered and may log in');
+				res.location('/');
+				res.redirect('/');
+			})
+			.catch(err => next(err))
+	});
 });
 
 
@@ -89,42 +86,29 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-	User.getUserById(id, function(err, user) {
+	User.findById(id, function(err, user) {
 		done(err, user);
   	});
 });
 
-passport.use(new LocalStrategy({
-	usernameField: 'email'
-},
-	function(username, password, done){
-		console.log(username, password)
-		User.getUserByEmail(username, function(err, user){
-			if(err) throw err;
-			if(!user){
-				console.log('Unknown user');
-				return done(null, false, {message: 'Unknown User'});
-			}
-			User.comparePassword(password, user.password, function(err, isMatch){
-				if(err) throw err;
-				if(isMatch) {
-					return done(null, user);
-				} else {
-					console.log('invalid password');
-					return done(null, false, {message: 'Invalod password'})
-				}
+passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+	User
+		.findOne({ email })
+		.then((user) => {
+			if (!user) return done(null, false, { message: 'Unknown User' });
+			User.comparePassword(password, user.password, (err, isMatch) => {
+				if (isMatch) return done(null, user);
+				done(null, false, { message: 'Invalod password' })
 			})
-		});
-	}
+		})
+		.catch(err => done(err))
+}));
 
-));
 
-
-router.post('/login', passport.authenticate('local', { failureRedirect: '/users/login', failureFlash: 'Invalid username or password'}), function(req, res) {
+router.post('/login', passport.authenticate('local', { failureRedirect: '/users/login', failureFlash: 'Invalid username or password'}), (req, res) => {
 	console.log('Autentication Succesful');
 	req.flash('success', 'You are logged in');
 	res.redirect('/');
-
 });
 
 router.get('/logout', function(req, res){
