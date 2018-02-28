@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const db = require('./../config/db');
 //User schema
 
-var UserSchema = mongoose.Schema({
+var UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		bcrypt: true,
@@ -19,7 +20,7 @@ var UserSchema = mongoose.Schema({
 	}
 });
 
-var User = module.exports = mongoose.model('User', UserSchema);
+var User = module.exports = db.model('User', UserSchema);
 
 module.exports.comparePassword = function(candidatePassword, hash, callback) {
 	bcrypt.compare(candidatePassword, hash, function(err, isMatch){

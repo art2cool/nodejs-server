@@ -1,12 +1,10 @@
-var mongoose = require("mongoose");
-
-var db = mongoose.connection;
+const mongoose = require("mongoose");
 
 const mongoUrl = 'mongodb://localhost/nodeauth';
 
 mongoose.Promise = global.Promise;
 
-var db = mongoose.createConnection(mongoUrl)
+const db = mongoose.createConnection(mongoUrl)
 
 db.on("error", function (err) {
   if (err) {
