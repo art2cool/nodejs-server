@@ -5,8 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
-var User = require('../models/user');
-
+const User = require('../models/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -41,6 +40,7 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function (
 	// 	// set default img
 	// 	var profileImageName = 'noimage.jpg';
 	// }
+	
 	// form validator
 	req.checkBody('name', 'Name field is required').notEmpty();
 	req.checkBody('email', 'Email field is required').notEmpty();
@@ -51,16 +51,9 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function (
 	var errors = req.validationErrors();
 
 	if (errors) {
-		console.log(errors)
-		res.render('register', {
-			errors: errors,
-			name: name,
-			email: email,
-			password: password,
-			password2: password2
-		});
-		return;
+		return res.render('register', {errors, name, email, password, password2 });
 	}
+
 	bcrypt.hash(password, 10, (err, hash) => {
 		if (err) throw err;
 		const newUser = new User({
@@ -71,9 +64,8 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function (
 		newUser
 			.save()
 			.then(user => {
-				//send message
 				req.flash('success', 'You are now refistered and may log in');
-				res.location('/');
+			//	res.location('/');
 				res.redirect('/');
 			})
 			.catch(err => next(err))

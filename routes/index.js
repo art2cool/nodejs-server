@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { isAuthorized } = require('./../middlwares/auth');
+const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 
 const User = require('../models/user');
 /* GET home page. */
@@ -14,7 +14,5 @@ router.get('/', isAuthorized, function(req, res, next) {
 			next(err)
 		})
 });
-
-
 
 module.exports = router;
