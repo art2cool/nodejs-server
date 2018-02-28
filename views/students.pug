@@ -1,0 +1,59 @@
+extends layout
+
+block content
+	h2 #{title}
+	.container
+		.row
+			.col-xs-12
+				.table-responsive
+					table.table.table-bordered.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+						caption.text-center statistic create responsive tables using Bootstrap
+						thead
+							tr
+								th #
+								th Languages
+								th Population
+								th Population
+								th Median Age
+								th Area (Km²)
+								th Actions
+						tbody
+							tr
+								td Argentina
+								td Spanish (official), English, Italian, German, French
+								td 41,803,125
+								td 41,803,125
+								td 31.3
+								td 2,780,387
+								td
+									button.btn.btn-primary(type='button', data-id="{user.id}") 
+										span.glyphicon.glyphicon-pencil
+									| &nbsp;
+									button.btn.btn-danger(type='button', data-id="{user.id}")
+										span.glyphicon.glyphicon-remove
+							tr
+								td Australia
+								td English 79%, native and other languages
+								td 23,630,169
+								td 37.3
+								td 37.3
+								td 7,739,983
+								td
+									button.btn.btn-primary(type='button', data-id="{user.id}") 
+										span.glyphicon.glyphicon-pencil
+									| &nbsp;
+									button.btn.btn-danger(type='button', data-id="{user.id}")
+										span.glyphicon.glyphicon-remove
+							tr
+								td Australia
+								td English 79%, native and other languages
+								td 23,630,169
+								td 37.3
+								td 37.3
+								td 7,739,983
+								td
+									button.btn.btn-primary(type='button', data-id="{user.id}") 
+										span.glyphicon.glyphicon-pencil
+									| &nbsp;
+									button.btn.btn-danger(type='button', data-id="{user.id}")
+										span.glyphicon.glyphicon-remove
