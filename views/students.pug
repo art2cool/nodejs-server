@@ -2,7 +2,7 @@ extends layout
 
 block content
 	h2 #{title}
-	a.btn.btn-info.pull-right(href='/student', role='button') Add Student
+	a.btn.btn-info.pull-right(href='/students/add', role='button') Add Student
 	.container
 		.row
 			.col-xs-12
@@ -14,10 +14,9 @@ block content
 								th #
 								th Name
 								th E-mail
-								th Phome
+								th Phone
 								th Language
 								th Notes
-								th Actions
 						tbody
 						each student, i in students
 							tr
@@ -28,9 +27,3 @@ block content
 								td #{student.language}
 								td 
 									div.notes #{student.notes}
-								td
-									button.btn.btn-primary(type='button', data-id="#{student._id}") 
-										span.glyphicon.glyphicon-pencil
-									| &nbsp;
-									button.btn.btn-danger(type='button', data-id="#{student._id}")
-										span.glyphicon.glyphicon-remove

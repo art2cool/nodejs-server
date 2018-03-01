@@ -1,0 +1,38 @@
+extends layout
+
+block content
+	h1 Create student
+	ul.errors
+		if errors
+			each error, i in errors
+				li.alert.alert-danger #{error.msg}
+	.row
+		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
+			form(method='post', action='/students', enctype='multipart/form-data')
+				.form-group
+					label Name
+					input.form-control(type='text', name='name', placeholder='Enter Student Name')
+				.form-group
+					label Email
+					input.form-control(type='email', name='email', placeholder='Enter contact Email')
+				.form-group
+					label Phone
+					input.form-control(type='text', name='phone', placeholder='Enter contact phone')
+				.form-group
+					label Language
+					br
+					select.selectpicker(name='language', multiple)
+						option English
+						option German
+						option Polish
+				.form-group
+					label Language level
+					br
+					select.selectpicker(name='language')
+						option A1
+						option B1
+						option C1
+				.form-group
+					label(for='exampleFormControlTextarea1') Short Notes
+					textarea#exampleFormControlTextarea1.form-control(rows='4')
+				input.btn.btn-default(name='submit', type='submit', value='Register')

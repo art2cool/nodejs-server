@@ -4,6 +4,12 @@ const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 
 const Students = require('../models/students');
 /* GET home page. */
+router.get('/add', isAuthorized, function(req, res, next) {
+	res.render('student-add', {
+		'title': 'Create student'
+	});
+});
+
 router.get('/', isAuthorized, function(req, res, next) {
 	Students
 		.find({})
