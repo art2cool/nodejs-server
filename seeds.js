@@ -14,7 +14,7 @@ const run = async () => {
   try {
     await User.remove({});
     await User.create(admin);
-    const students = studentsGenerator(9);
+    const students = studentsGenerator(19);
     await Student.remove({});
     await Student.create(students);
   } catch (e) {
@@ -36,7 +36,7 @@ function studentsGenerator(count) {
       "language": faker.random.arrayElement(['English', 'Polish', 'German', 'Japanese']),
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "dayOfBirth": faker.date.past(),
-      "note": faker.lorem.sentence()
+      "notes": faker.lorem.sentence()
     }
     students.push(stud)
   }

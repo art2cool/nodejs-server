@@ -2,13 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 
-const User = require('../models/user');
+const Students = require('../models/students');
 /* GET home page. */
 router.get('/', isAuthorized, function(req, res, next) {
-	User
+	Students
 		.find({})
-		.then( users => {
-			res.render('students', { title: 'Students', users: users});
+		.sort({name: 1})
+		.then( students => {
+		//	console.log(students)
+			res.render('students', { title: 'Students', students});
 		})
 		.catch(err => {
 			next(err)
