@@ -16,6 +16,7 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "faker": "^4.1.0",
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "~1.6.1",
