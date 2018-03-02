@@ -21,7 +21,7 @@ block content
 				.form-group
 					label Language
 					br
-					select.selectpicker(name='language', multiple)
+					select.selectpicker(name='language')
 						option English
 						option German
 						option Polish
@@ -33,6 +33,16 @@ block content
 						option B1
 						option C1
 				.form-group
+					label Day of birth
+					input.form-control(type='date', name='dayofbirth',)
+				.form-group
+					label Account (in UAH)
+					.input-group
+						.input-group-addon ₴
+						input#account.form-control(type='number', placeholder='Amount')
+						.input-group-addon .00
+				.form-group
 					label(for='exampleFormControlTextarea1') Short Notes
 					textarea#exampleFormControlTextarea1.form-control(rows='4')
-				input.btn.btn-default(name='submit', type='submit', value='Register')
+				input.btn.btn-primary.pull-right(name='submit', type='submit', value='Add Student')
+				a.btn.btn-default.pull-right(href='/students', role='button') Cancel
