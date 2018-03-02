@@ -36,7 +36,8 @@ function studentsGenerator(count) {
       "language": faker.random.arrayElement(['English', 'Polish', 'German', 'Japanese']),
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "dayOfBirth": faker.date.past(),
-      "notes": faker.lorem.sentence()
+      "notes": faker.lorem.sentence(),
+      "account": faker.random.number(0, 500)
     }
     students.push(stud)
   }

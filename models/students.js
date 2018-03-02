@@ -16,8 +16,8 @@ const studentSchema = new mongoose.Schema({
 	dayOfBirth: {
 		type: Date
 	},
-	account: { type: Number }
+	account: { type: Number },
+	createAt: { type: Date, default: Date.now}
 });
 
 module.exports = db.model('Student', studentSchema);
-

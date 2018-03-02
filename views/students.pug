@@ -21,9 +21,10 @@ block content
 						each student, i in students
 							tr
 								td #{i+1}
-								td #{student.name}
+								td
+									a(href='/students/' + student._id) #{student.name}
 								td #{student.email}
 								td #{student.phone}
 								td #{student.language}
-								td 
+								td
 									div.notes #{student.notes}

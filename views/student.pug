@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	h2 #{title}
+	p Email: #{student.email}
+	p Phone: #{student.phone}
+	p language: #{student.language}
+	p level: #{student.level}
+	p Day of birth.: #{student.dayofbirth}
+	p Created at.: #{student.createdAt}
+	br
+	h4 Account: #{student.account}грн.
+	#{student}

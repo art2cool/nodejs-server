@@ -8,7 +8,7 @@ block content
 				li.alert.alert-danger #{error.msg}
 	.row
 		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
-			form(method='post', action='/students', enctype='multipart/form-data')
+			form(method='post', action='/students', enctype='application/json')
 				.form-group
 					label Name
 					input.form-control(type='text', name='name', placeholder='Enter Student Name')
@@ -28,7 +28,7 @@ block content
 				.form-group
 					label Language level
 					br
-					select.selectpicker(name='language')
+					select.selectpicker(name='level')
 						option A1
 						option B1
 						option C1
@@ -39,10 +39,10 @@ block content
 					label Account (in UAH)
 					.input-group
 						.input-group-addon ₴
-						input#account.form-control(type='number', placeholder='Amount')
+						input#account.form-control(type='number', name='account', placeholder='Amount')
 						.input-group-addon .00
 				.form-group
 					label(for='exampleFormControlTextarea1') Short Notes
-					textarea#exampleFormControlTextarea1.form-control(rows='4')
+					textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes')
 				input.btn.btn-primary.pull-right(name='submit', type='submit', value='Add Student')
 				a.btn.btn-default.pull-right(href='/students', role='button') Cancel
