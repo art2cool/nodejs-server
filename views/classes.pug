@@ -1,0 +1,34 @@
+extends layout
+
+block content
+	h2 #{title}
+	a.btn.btn-info.pull-right(href='/classes/add', role='button') Create Class
+	.container
+		.row
+			.col-xs-12
+				.table-responsive
+					table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+						caption.text-center List of classes can edit everyone of them
+						thead
+							tr
+								th #
+								th Teacher
+								th Students
+								th Language
+								th Level
+								th Type
+								th Notes
+						tbody
+						each clas, i in classes
+							tr
+								td #{i+1}
+								td #{clas.teacher.length ? clas.teacher[0].name : 'no teacher'}
+								td #{clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
+								td #{clas.language}
+								td #{clas.level}
+								td #{clas.type}
+								td
+									div.notes #{clas.notes}
+								//- td
+									//- a(href='/classes/' + clas._id) #{clas.name}
+	//- #{classes}

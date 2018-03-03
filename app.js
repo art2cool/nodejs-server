@@ -15,6 +15,7 @@ const db = require('./config/db');
 const routes = require('./routes/index');
 const students = require('./routes/students');
 const users = require('./routes/users');
+const classes = require('./routes/classes');
 
 const app = express();
 
@@ -84,6 +85,7 @@ app.get('*', function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/students', students);
+app.use('/classes', classes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
