@@ -8,6 +8,7 @@ const admin = {
   "name": "admin",
   "email": "admin@admin.com",
   "role": 'admin',
+  "phone": faker.phone.phoneNumber(),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 }
 
@@ -15,28 +16,32 @@ const teachers = [{
   "name": "Olya Dmytrivna",
   "email": "dmutrivna@teacher.com",
   "role": 'teacher',
-  "coeficient": faker.random.number(0, 100),
+  "phone": faker.phone.phoneNumber(),
+  "coeficient": faker.random.number(1, 100),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
   "name": "Nataha Dmytrivna",
   "email": "123Vasivna@teacher.com",
   "role": 'teacher',
-  "coeficient": faker.random.number(0, 100),
+  "phone": faker.phone.phoneNumber(),
+  "coeficient": faker.random.number(1, 100),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
   "name": "Vassa Petrov",
   "email": "Vaasap!@teacher.com",
   "role": 'teacher',
-  "coeficient": faker.random.number(0, 100),
+  "phone": faker.phone.phoneNumber(),
+  "coeficient": faker.random.number(1, 100),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
   "name": "Ira Komariyska",
   "email": "opsrsfc@teacher.com",
   "role": 'teacher',
-  "coeficient": faker.random.number(0, 100),
+  "phone": faker.phone.phoneNumber(),
+  "coeficient": faker.random.number(1, 100),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 }]
 
@@ -74,7 +79,7 @@ function studentsGenerator(count) {
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "dayOfBirth": faker.date.past(),
       "notes": faker.lorem.sentence(),
-      "account": faker.random.number(0, 500),
+      "account": faker.random.number(100, 500),
     }
     students.push(stud)
   }
@@ -89,7 +94,7 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "notes": faker.lorem.sentence(),
       "type": faker.random.arrayElement(['induvidual', 'semi-induvidual', 'group']),
-      "price": faker.random.number(0, 100),
+      "price": faker.random.number(50, 200),
       "teacher": faker.random.arrayElement(teacherIDs)
     }
     console.log(clas.type)
@@ -110,15 +115,3 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
   }
   return classes
 }
-
-// name: { type: String, trim: true },
-// students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
-//   teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-//     language: {
-//   type: String,
-//     enum: ['English', 'Polish', 'German', 'Japanese']
-// },
-// level: { type: String, enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
-// notes: { type: String, trim: true },
-// price: { type: Number },
-// type: { type: String, enum: ['induvidual', 'semi-induvidual', 'group'] }

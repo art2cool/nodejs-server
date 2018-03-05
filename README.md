@@ -19,3 +19,12 @@ http://localhost:8000
 -p 123123
 
 ```
+### Developing
+For start server with nodemon run
+```
+npm run dev
+```
+nodemon should be installed globaly
+```sh
+npm install nodemon -g
+```
