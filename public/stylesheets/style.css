@@ -42,3 +42,7 @@ ul.error li {
 div.notes {
 	max-width: 300px;
 }
+
+#add-accounts {
+	cursor: pointer;
+}

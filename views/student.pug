@@ -10,3 +10,23 @@ block content
 	p Created at.: #{student.createdAt}
 	br
 	h4 Account: #{student.account}грн.
+		| &nbsp;
+		button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
+			i.glyphicon.glyphicon-plus-sign#add-accounts
+	#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+		.modal-dialog(role='document')
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') ×
+					h4#myModalLabel.modal-title #{student.name} accounts | #{student.account}грн
+				.modal-body
+					.row
+						.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-8.col-md-7.col-sm-6.pull-right
+							.input-group
+								.input-group-addon ₴
+								input#account.form-control(type='number', name='account', placeholder='Amount')
+								.input-group-addon .00
+				.modal-footer
+					button.btn.btn-default(type='button', data-dismiss='modal') Close
+					button.btn.btn-primary.add-accounts(type='button') Add
