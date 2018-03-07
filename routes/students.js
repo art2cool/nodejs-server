@@ -4,7 +4,7 @@ const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 
 const Student = require('../models/students');
 /* GET home page. */
-router.get('/add', isAuthorized, async (req, res, next) => {
+router.get('/add', isAuthorized, (req, res, next) => {
 	res.render('student-add', {
 		'title': 'Create student'
 	});

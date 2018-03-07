@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
 	password: { type: String, require: true },
 	role: { type: String, enum: ['admin', 'teacher'] },
 	phone: String,
-	classes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Class' }],
 	coeficient: { type: Number }
 });
 
