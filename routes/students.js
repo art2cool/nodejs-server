@@ -27,7 +27,7 @@ router.get('/:id', isAuthorized, async function(req, res, next) {
 	const id = req.params.id;
 	try {
 		const student = await Student.findById(id);
-		const paids = await Paid.find({ student: id }).sort({ date: -1 }).limit(5);
+		const paids = await Paid.find({ student: id }).sort({ date: -1 });
 		res.render('student', { title: student.name, student, paids});
 	} catch (e) {
 		next(e)

@@ -13,21 +13,24 @@ block content
 		| &nbsp;
 		button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
 			i.glyphicon.glyphicon-plus-sign#add-accounts
-
-	table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-		thead
-			tr
-				th #
-				th Value
-				th Type
-				th date
-		tbody
-		each paid, i in paids
-			tr
-				td #{i+1}
-				td #{paid.value}
-				td #{paid.type}
-				td #{paid.date}
+	a.btn.btn-primary(role='button', data-toggle='collapse', href='#collapsePayments', aria-expanded='false', aria-controls='collapsePayments')
+		| Show payments history
+	div.collapse#collapsePayments
+		diw.row
+		table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+			thead
+				tr
+					th #
+					th Value
+					th Type
+					th date
+			tbody
+			each paid, i in paids
+				tr
+					td #{i+1}
+					td #{paid.value}
+					td #{paid.type}
+					td #{paid.date}
 	#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
 		.modal-dialog(role='document')
 			.modal-content
