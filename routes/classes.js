@@ -16,7 +16,6 @@ router.get('/', isAuthorized, function(req, res, next) {
 		.populate({ path: 'teacher', select: 'name'})
 		.populate({path: 'students', select: 'name'})
 		.then( classes => {
-			console.log(classes)
 			res.render('classes', { title: 'Classes', classes});
 		})
 		.catch(err => {
@@ -26,11 +25,9 @@ router.get('/', isAuthorized, function(req, res, next) {
 
 router.get('/:id', isAuthorized, function(req, res, next) {
 	const id = req.params.id;
-	console.log(id)
 	Student
 		.findById(id)
 		.then( student => {
-		//	console.log(students)
 			res.render('student', { title: student.name, student});
 		})
 		.catch(err => {
@@ -39,7 +36,6 @@ router.get('/:id', isAuthorized, function(req, res, next) {
 });
 
 router.post('/', isAdmin, (req, res) => {
-	console.log(req.body)
 	const { name, email, phone, language, level, dayofbirth, account, notes} = req.body;
 	const student = new Student({
 		name, email, phone, language, level, dayofbirth, account, notes

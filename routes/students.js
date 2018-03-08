@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { isAuthorized, isAdmin } = require('./../middlwares/auth');
+const { isAuthorized, isAdmin, isManager } = require('./../middlwares/auth');
 
 const Student = require('../models/students');
+const Paid = require('../models/paid');
 /* GET home page. */
 router.get('/add', isAuthorized, (req, res, next) => {
 	res.render('student-add', {
@@ -22,16 +23,15 @@ router.get('/', isAuthorized, function(req, res, next) {
 		})
 })
 
-router.get('/:id', isAuthorized, function(req, res, next) {
+router.get('/:id', isAuthorized, async function(req, res, next) {
 	const id = req.params.id;
-	Student
-		.findById(id)
-		.then( student => {
-			res.render('student', { title: student.name, student});
-		})
-		.catch(err => {
-			next(err)
-		})
+	try {
+		const student = await Student.findById(id);
+		const paids = await Paid.find({ student: id }).sort({ date: -1 }).limit(5);
+		res.render('student', { title: student.name, student, paids});
+	} catch (e) {
+		next(e)
+	}
 });
 
 router.post('/', isAdmin, (req, res) => {
@@ -44,5 +44,19 @@ router.post('/', isAdmin, (req, res) => {
 		.then( student => {
 			res.redirect(`/students/${student._id}`);
 		})
+});
+router.post('/:id/payment', isManager, async(req, res, next) => {
+	const id = req.params.id;
+	const value = ~~req.body.value;
+	const type = value > 0 ? 'income' : 'outcome';
+	try {
+		await Paid.create({student: id, type, value});
+		const student = await Student.findById(id);
+		student.account += value;
+		await student.save();
+		res.json(student)
+	} catch(e) {
+		next(e)
+	}
 })
 module.exports = router;

@@ -13,7 +13,8 @@ const classSchema = new mongoose.Schema({
 	level: { type: String, enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
 	notes: { type: String, trim: true },
 	price: { type: Number },
-	type: { type: String, enum: ['induvidual', 'semi-induvidual', 'group'] }
+	type: { type: String, enum: ['induvidual', 'semi-induvidual', 'group'] },
+	createAt: { type: Date, default: Date.now }
 });
 
 module.exports = db.model('Class', classSchema);

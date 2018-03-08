@@ -2,6 +2,7 @@ const db = require('./config/db');
 const User = require('./models/user');
 const Student = require('./models/students');
 const Class = require('./models/classes');
+const Paid = require('./models/paid');
 const faker = require('faker');
 
 const admin = {
@@ -17,7 +18,7 @@ const teachers = [{
   "email": "dmutrivna@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number(1, 100),
+  "coeficient": faker.random.number({min: 10, max: 100}),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -25,7 +26,7 @@ const teachers = [{
   "email": "123Vasivna@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number(1, 100),
+  "coeficient": faker.random.number({min: 10, max: 100}),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -33,7 +34,7 @@ const teachers = [{
   "email": "Vaasap!@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number(1, 100),
+  "coeficient": faker.random.number({min: 10, max: 100}),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -41,7 +42,7 @@ const teachers = [{
   "email": "opsrsfc@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number(1, 100),
+  "coeficient": faker.random.number({min: 10, max: 100}),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 }]
 
@@ -50,6 +51,7 @@ const run = async () => {
     await User.remove({});
     await Student.remove({});
     await Class.remove({});
+    await Paid.remove({});
     await User.create(admin);
     await User.create(teachers);
     const students = studentsGenerator(29);
@@ -59,6 +61,8 @@ const run = async () => {
     const teacherIDs = await User.aggregate([{$match: {role: 'teacher'}},{$group:{_id: null, ids: {$push: "$_id"}}}]).exec();
     const classes = classesGenerator(8, studentIDs[0].ids, teacherIDs[0].ids)
     await Class.create(classes);
+    const payments = generatePaiment(studentIDs[0].ids);
+    await Paid.create(payments);
   } catch (e) {
     console.log(e);
   } finally {
@@ -79,7 +83,7 @@ function studentsGenerator(count) {
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "dayOfBirth": faker.date.past(),
       "notes": faker.lorem.sentence(),
-      "account": faker.random.number(100, 500),
+      "account": faker.random.number({min: -100, max: 500}),
     }
     students.push(stud)
   }
@@ -100,11 +104,11 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
     console.log(clas.type)
     console.log(studentsIDs.length)
     if (clas.type == 'induvidual' ) {
-      const index = faker.random.number(0, studentsIDs.length-1);
+      const index = faker.random.number({min:0, max: studentsIDs.length-1});
       clas.students = [...studentsIDs.slice(index, index + 1)];
     }
     if (clas.type == 'semi-induvidual' ) {
-      const index = faker.random.number(0, studentsIDs.length-1);
+      const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
       clas.students = [...studentsIDs.slice(index, index + 2)];
     }
     if (clas.type == 'group' ) {
@@ -114,4 +118,20 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
     classes.push(clas)
   }
   return classes
+}
+
+function generatePaiment(studentIDs) {
+  const payments = [];
+  studentIDs.forEach(id => {
+    let count = faker.random.number({min: 3, max: 20});
+    while(count--) {
+      let paid = {
+        student: id,
+        value: faker.random.number({min: -200, max:200}),
+        type: faker.random.arrayElement(['income', 'outcome'])
+      };
+      payments.push(paid);
+    }
+  })
+  return payments;
 }
