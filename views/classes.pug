@@ -20,10 +20,9 @@ block content
 								th Notes
 						tbody
 						each clas, i in classes
-							tr
+							tr.clickable-row(data-href='classes/' + clas._id)
 								td #{i+1}
-								td
-									a(href='/teachers/' + clas.teacher[0]._id) #{clas.teacher[0].name}
+								td #{clas.teacher.name}
 								td #{clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
 								td #{clas.language}
 								td #{clas.level}

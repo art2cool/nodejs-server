@@ -46,3 +46,7 @@ div.notes {
 #add-accounts {
 	cursor: pointer;
 }
+
+.clickable-row {
+	cursor: pointer;
+}

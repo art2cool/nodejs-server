@@ -25,10 +25,12 @@ router.get('/', isAuthorized, function(req, res, next) {
 
 router.get('/:id', isAuthorized, function(req, res, next) {
 	const id = req.params.id;
-	Student
+	Class
 		.findById(id)
-		.then( student => {
-			res.render('student', { title: student.name, student});
+		.populate({ path: 'students', select: 'name' })
+		.populate({ path: 'teacher', select: 'name' })
+		.then( clas => {
+			res.render('class', { title: `${clas.language} ${clas.level} (${clas.teacher.name})`, clas});
 		})
 		.catch(err => {
 			next(err)

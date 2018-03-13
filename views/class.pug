@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	h2 #{title}
+	a.btn.btn-info.pull-right(href='/classes/edit', role='button') Edit Class
+	p Teacher: &nbsp;
+		a(href='/teachers/' + clas.teacher._id) #{clas.teacher.name}
+	p language: #{clas.language}
+	p level: #{clas.level}
+	p type: #{clas.type}
+	p Students: &nbsp;
+		each student in clas.students
+			a(href='/students/' + student._id) #{student.name}
+			|, &nbsp;
+	p Notes: #{clas.notes}

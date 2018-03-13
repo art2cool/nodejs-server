@@ -5,7 +5,7 @@ const db = require('./../config/db');
 const classSchema = new mongoose.Schema({
 	name: { type: String, trim: true },
 	students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
-	teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+	teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	language: {
 		type: String,
 		enum: ['English', 'Polish', 'German', 'Japanese']
