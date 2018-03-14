@@ -9,7 +9,7 @@ const collaborationSchema = new mongoose.Schema({
 	since: { type: Date },
 	createAt: { type: Date, default: Date.now },
 	room: {type: String},
-	presents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }]
+	students: [{ student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' }, present: {type: Boolean, default: false}}]
 });
 
 module.exports = db.model('Collaboration', collaborationSchema);

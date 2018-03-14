@@ -13,3 +13,28 @@ block content
 			a(href='/students/' + student._id) #{student.name}
 			|, &nbsp;
 	p Notes: #{clas.notes}
+	.row
+		.col-xs-12
+			.table-responsive
+				table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+					caption.text-center List of usersyou can edit everyone of them
+					thead
+						tr
+							th #
+							th presents
+							th since
+							th until
+							th status
+							th room
+							th Class
+					tbody
+					each collaboration, i in clas.collaborations
+						tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
+							td #{i+1}
+							td #{collaboration.students.map(el => ` ${el.student.name}`)}
+							td #{collaboration.since}
+							td #{collaboration.until}
+							td #{collaboration.status}
+							td #{collaboration.room}
+							td #{collaboration.class}
+	#{clas.collaborations}

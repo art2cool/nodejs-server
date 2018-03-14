@@ -3,6 +3,7 @@ const router = express.Router();
 const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 
 const Class = require('../models/classes');
+const Collaboration = require('../models/collaboration');
 /* GET home page. */
 router.get('/add', isAuthorized, async (req, res, next) => {
 	res.render('student-add', {
@@ -21,20 +22,43 @@ router.get('/', isAuthorized, function(req, res, next) {
 		.catch(err => {
 			next(err)
 		})
-})
+	})
 
-router.get('/:id', isAuthorized, function(req, res, next) {
+	router.get('/:id/lessons/:collaboration', isAuthorized, async function (req, res, next) {
+		const id = req.params.id;
+		const collaboration = req.params.collaboration;
+		Collaboration
+		.findById(collaboration)
+		.populate({ path: 'students.student', select: 'name' })
+		.then( collaboration => {
+			console.log('-----------clas.collaborations')
+			console.log(collaboration)
+			res.render('lesson', { title: `Collaborations`, collaboration });
+		})
+		.catch(e => {
+			next(e);
+		})
+});
+
+router.get('/:id', isAuthorized, async function(req, res, next) {
 	const id = req.params.id;
-	Class
-		.findById(id)
-		.populate({ path: 'students', select: 'name' })
-		.populate({ path: 'teacher', select: 'name' })
-		.then( clas => {
-			res.render('class', { title: `${clas.language} ${clas.level} (${clas.teacher.name})`, clas});
-		})
-		.catch(err => {
-			next(err)
-		})
+	try {
+		const clas = await Class
+			.findById(id)
+			.populate({ path: 'students', select: 'name' })
+			.populate({ path: 'teacher', select: 'name' })
+			.exec();
+
+		clas.collaborations = await Collaboration
+			.find({class: id})
+			.populate({ path: 'students.student', select: 'name' })
+			.exec();
+
+		res.render('class', { title: `${clas.language} ${clas.level} (${clas.teacher.name})`, clas});
+
+	} catch (e) {
+		next(e);
+	}
 });
 
 router.post('/', isAdmin, (req, res) => {

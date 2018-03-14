@@ -1,0 +1,29 @@
+extends layout
+
+block content
+	h2 #{title}
+	p time: #{collaboration.since} - #{collaboration.until}
+	p room: #{collaboration.room}
+	p status: #{collaboration.status}
+	.container
+		.row
+			.col-xs-12
+				.table-responsive
+					table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
+						caption.text-center List of classes can edit everyone of them
+						thead
+							tr
+								th #
+								th Students
+								th Pressent
+						tbody
+						each student, i in collaboration.students
+							tr
+								td #{i+1}
+								td
+									a(href='/students/' + student.student._id) #{student.student.name}
+								td
+									.checkbox
+										label
+											input#pressent(type='checkbox', checked=student.present)
+			#{collaboration}

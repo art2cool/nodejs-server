@@ -1,9 +1,10 @@
+const faker = require('faker');
 const db = require('./config/db');
 const User = require('./models/user');
 const Student = require('./models/students');
 const Class = require('./models/classes');
 const Paid = require('./models/paid');
-const faker = require('faker');
+const Collaboration = require('./models/collaboration');
 
 const admin = {
   "name": "admin",
@@ -52,6 +53,7 @@ const run = async () => {
     await Student.remove({});
     await Class.remove({});
     await Paid.remove({});
+    await Collaboration.remove({});
     await User.create(admin);
     await User.create(teachers);
     const students = studentsGenerator(29);
@@ -63,6 +65,9 @@ const run = async () => {
     await Class.create(classes);
     const payments = generatePaiment(studentIDs[0].ids);
     await Paid.create(payments);
+    const classes2 = await Class.aggregate([{ $group: { _id: null, classes: { $push: {id: "$_id", students: "$students" }} } }]).exec();
+    const collaborations = generateCollaborations(classes2[0].classes)
+    await Collaboration.create(collaborations);
   } catch (e) {
     console.log(e);
   } finally {
@@ -101,8 +106,6 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
       "price": faker.random.number(50, 200),
       "teacher": faker.random.arrayElement(teacherIDs)
     }
-    console.log(clas.type)
-    console.log(studentsIDs.length)
     if (clas.type == 'induvidual' ) {
       const index = faker.random.number({min:0, max: studentsIDs.length-1});
       clas.students = [...studentsIDs.slice(index, index + 1)];
@@ -134,4 +137,25 @@ function generatePaiment(studentIDs) {
     }
   })
   return payments;
+}
+
+
+function generateCollaborations(classes) {
+  const collaborations = [];
+  classes.forEach(clas => {
+    let count = faker.random.number(15);
+    while (count--) {
+      const day = faker.date.past(1);
+      const collaboration = {
+        class: clas.id,
+        status: faker.random.arrayElement(['finished']),
+        room: faker.random.arrayElement(['n1', 'n2', 'n3', 'n4', 'n5']),
+        since: day,
+        until: new Date(day.getTime() + 1000 * 60 * 60 * 2),
+        students: clas.students.map(el => { return { student: el, present: faker.random.arrayElement([false, true, true, true, true])}})
+      }
+      collaborations.push(collaboration);
+    }
+  })
+  return collaborations
 }

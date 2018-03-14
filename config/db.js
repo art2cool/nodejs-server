@@ -12,7 +12,7 @@ db.on("error", function (err) {
   }
 });
 db.on('close', () => {
-  console.log('Mongo DB closedт connection')
+  console.log('Mongo DB closed connection')
 })
 
 db.once("open", function callback() {
