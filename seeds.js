@@ -19,7 +19,7 @@ const teachers = [{
   "email": "dmutrivna@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({min: 10, max: 100}),
+  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -27,7 +27,7 @@ const teachers = [{
   "email": "123Vasivna@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({min: 10, max: 100}),
+  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -35,7 +35,7 @@ const teachers = [{
   "email": "Vaasap!@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({min: 10, max: 100}),
+  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -43,7 +43,7 @@ const teachers = [{
   "email": "opsrsfc@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({min: 10, max: 100}),
+  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 }]
 
@@ -59,13 +59,13 @@ const run = async () => {
     const students = studentsGenerator(29);
     await Student.create(students);
 
-    const studentIDs = await Student.aggregate([{$group:{_id: null, ids: {$push: "$_id"}}}]).exec();
-    const teacherIDs = await User.aggregate([{$match: {role: 'teacher'}},{$group:{_id: null, ids: {$push: "$_id"}}}]).exec();
+    const studentIDs = await Student.aggregate([{ $group: { _id: null, ids: { $push: "$_id" } } }]).exec();
+    const teacherIDs = await User.aggregate([{ $match: { role: 'teacher' } }, { $group: { _id: null, ids: { $push: "$_id" } } }]).exec();
     const classes = classesGenerator(8, studentIDs[0].ids, teacherIDs[0].ids)
     await Class.create(classes);
     const payments = generatePaiment(studentIDs[0].ids);
     await Paid.create(payments);
-    const classes2 = await Class.aggregate([{ $group: { _id: null, classes: { $push: {id: "$_id", students: "$students" }} } }]).exec();
+    const classes2 = await Class.aggregate([{ $group: { _id: null, classes: { $push: { id: "$_id", students: "$students" } } } }]).exec();
     const collaborations = generateCollaborations(classes2[0].classes)
     await Collaboration.create(collaborations);
   } catch (e) {
@@ -88,7 +88,7 @@ function studentsGenerator(count) {
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "dayOfBirth": faker.date.past(),
       "notes": faker.lorem.sentence(),
-      "account": faker.random.number({min: -100, max: 500}),
+      "account": faker.random.number({ min: -100, max: 500 }),
     }
     students.push(stud)
   }
@@ -97,25 +97,25 @@ function studentsGenerator(count) {
 
 function classesGenerator(count, studentsIDs, teacherIDs) {
   const classes = [];
-  while(count--) {
+  while (count--) {
     const clas = {
       "language": faker.random.arrayElement(['English', 'Polish', 'German', 'Japanese']),
       "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
       "notes": faker.lorem.sentence(),
-      "type": faker.random.arrayElement(['induvidual', 'semi-induvidual', 'group']),
+      "type": faker.random.arrayElement(['induvidual', 'semi-induvidual', 'group', 'group']),
       "price": faker.random.number(50, 200),
       "teacher": faker.random.arrayElement(teacherIDs)
     }
-    if (clas.type == 'induvidual' ) {
-      const index = faker.random.number({min:0, max: studentsIDs.length-1});
+    if (clas.type == 'induvidual') {
+      const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
       clas.students = [...studentsIDs.slice(index, index + 1)];
     }
-    if (clas.type == 'semi-induvidual' ) {
+    if (clas.type == 'semi-induvidual') {
       const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
       clas.students = [...studentsIDs.slice(index, index + 2)];
     }
-    if (clas.type == 'group' ) {
-      const index = Math.floor(Math.random()*10);
+    if (clas.type == 'group') {
+      const index = Math.floor(Math.random() * 10);
       clas.students = [...studentsIDs.slice(index, index + 3)];
     }
     classes.push(clas)
@@ -126,11 +126,11 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
 function generatePaiment(studentIDs) {
   const payments = [];
   studentIDs.forEach(id => {
-    let count = faker.random.number({min: 3, max: 20});
-    while(count--) {
+    let count = faker.random.number({ min: 3, max: 20 });
+    while (count--) {
       let paid = {
         student: id,
-        value: faker.random.number({min: -200, max:200}),
+        value: faker.random.number({ min: -200, max: 200 }),
         type: faker.random.arrayElement(['income', 'outcome'])
       };
       payments.push(paid);
@@ -144,6 +144,7 @@ function generateCollaborations(classes) {
   const collaborations = [];
   classes.forEach(clas => {
     let count = faker.random.number(15);
+    let planed = 2;
     while (count--) {
       const day = faker.date.past(1);
       const collaboration = {
@@ -152,10 +153,33 @@ function generateCollaborations(classes) {
         room: faker.random.arrayElement(['n1', 'n2', 'n3', 'n4', 'n5']),
         since: day,
         until: new Date(day.getTime() + 1000 * 60 * 60 * 2),
-        students: clas.students.map(el => { return { student: el, present: faker.random.arrayElement([false, true, true, true, true])}})
+        students: clas.students.filter(el => faker.random.boolean())
       }
       collaborations.push(collaboration);
     }
+    while (planed--) {
+      const day = faker.date.future(1);
+      const collaboration = {
+        class: clas.id,
+        status: faker.random.arrayElement(['planned']),
+        room: faker.random.arrayElement(['n1', 'n2', 'n3', 'n4', 'n5']),
+        since: day,
+        until: new Date(day.getTime() + 1000 * 60 * 60 * 2),
+        students: []
+      }
+      collaborations.push(collaboration);
+    }
+    const day = new Date();
+    const collaboration = {
+      class: clas.id,
+      status: faker.random.arrayElement(['review']),
+      room: faker.random.arrayElement(['n1', 'n2', 'n3', 'n4', 'n5']),
+      since: new Date(day.getTime() - 1000 * 60 * 60 * 2),
+      until: day,
+      students: clas.students.filter(el => faker.random.boolean())
+    }
+    collaborations.push(collaboration);
+
   })
   return collaborations
 }

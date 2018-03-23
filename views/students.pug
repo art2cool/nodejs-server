@@ -19,10 +19,9 @@ block content
 								th Notes
 						tbody
 						each student, i in students
-							tr
+							tr.clickable-row(data-href='/students/' + student._id)
 								td #{i+1}
-								td
-									a(href='/students/' + student._id) #{student.name}
+								td #{student.name}
 								td #{student.email}
 								td #{student.phone}
 								td #{student.language}

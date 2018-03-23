@@ -29,7 +29,7 @@ router.get('/', isAuthorized, function(req, res, next) {
 		const collaboration = req.params.collaboration;
 		Collaboration
 		.findById(collaboration)
-		.populate({ path: 'students.student', select: 'name' })
+		.populate({ path: 'class', select: 'students', populate: { path: 'students', select: 'name' }})
 		.then( collaboration => {
 			console.log('-----------clas.collaborations')
 			console.log(collaboration)
@@ -47,15 +47,19 @@ router.get('/:id', isAuthorized, async function(req, res, next) {
 			.findById(id)
 			.populate({ path: 'students', select: 'name' })
 			.populate({ path: 'teacher', select: 'name' })
+			.lean()
 			.exec();
 
-		clas.collaborations = await Collaboration
+		const coll = await Collaboration
 			.find({class: id})
-			.populate({ path: 'students.student', select: 'name' })
 			.exec();
 
+			console.log(coll)
+		clas.collaborations = {};
+		clas.collaborations.finished = coll.filter(el => el.status === 'finished')
+		clas.collaborations.review = coll.filter(el => el.status === 'review')
+		clas.collaborations.planned = coll.filter(el => el.status === 'planned')
 		res.render('class', { title: `${clas.language} ${clas.level} (${clas.teacher.name})`, clas});
-
 	} catch (e) {
 		next(e);
 	}
