@@ -6,22 +6,29 @@ block content
 	p time: #{collaboration.since} - #{collaboration.until}
 	p room: #{collaboration.room}
 	p status: #{collaboration.status}
-	.container
-		.row
-			.col-xs-12
-				.table-responsive
-					table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-						caption.text-center List of studenst who was present om this lessons
-						thead
-							tr
-								th #
-								th Students
-								th Pressent
-						tbody
-						each student, i in collaboration.class.students
-							tr
-								td #{i+1}
-								td
-									a(href='/students/' + student._id) #{student.name}
-								td
-									input.present(type='checkbox', data-student=student._id, checked=student.present)
+	if collaboration.status == 'review'
+		.container
+			.row
+				.col-xs-12
+					.table-responsive
+						table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
+							caption.text-center List of studenst who was present om this lessons
+							thead
+								tr
+									th #
+									th Students
+									th Pressent
+							tbody
+							each student, i in collaboration.class.students
+								tr
+									td #{i+1}
+									td
+										a(href='/students/' + student._id) #{student.name}
+									td
+										input.present(type='checkbox', data-student=student._id, checked=student.present)
+			a.btn.btn-info.pull-right#save(role='button') Save changes
+	else
+		p Students: &nbsp;
+			each student in collaboration.class.students
+				a(href='/students/' + student._id) #{student.name}
+				|, &nbsp;

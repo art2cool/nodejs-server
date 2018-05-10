@@ -22,8 +22,9 @@ html
 								a(href='/') Members
 							li(class=(title === 'Students' ? 'active' : ''))
 								a(href='/students') Students
-							li(class=(title === 'Teachers' ? 'active' : ''))
-								a(href='/teachers') Teachers
+							if user.role === 'admin' || user.role === 'manager	'
+								li(class=(title === 'Teachers' ? 'active' : ''))
+									a(href='/teachers') Teachers
 							li(class=(title === 'Classes' ? 'active' : ''))
 								a(href='/classes') Classes
 						if !user

@@ -1,6 +1,5 @@
 (function () {
 
-
   $(document).ready(function () {
     //rewrite tihs pls!
     const id = $('#account').attr('student');
@@ -21,24 +20,31 @@
 
   })
 
-  $('.present').click(function() {
-    const id = $(this).data('student');
-    const collaboration = window.location.pathname.split('lessons/')[0];
-    console.log(collaboration);
-    console.log('student', id)
+  $('#save').click(function() {
+    const collaboration = window.location.pathname.split('/lessons/').pop();
+    const clas = window.location.pathname.split('/lessons/').shift();
+    const body = [];
+    $('.present').each((i, val) => {
+      const present = $(val).prop('checked');
+      const id = $(val).data('student');
+      if(present) body.push(id);
+    })
 
-    const value = $(this).prop('checked');
-
+    console.log(body);
     $.ajax({
-      method: 'PATCH',
+      method: 'PUT',
       url: `http://localhost:8000/collaborations/${collaboration}`,
-      data: { student: id, value }
+      data: {students: JSON.stringify(body)}
     })
     .done(function (student) {
+      console.log(clas)
+      window.location.href = clas;
       console.log('super')
     });
   })
+
+
   $(".clickable-row").click(function () {
-    window.location = $(this).data("href");
+    window.location.href = $(this).data("href");
   });
 })()

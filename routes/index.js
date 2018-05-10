@@ -1,7 +1,8 @@
+
 const bcrypt = require('bcrypt')
 const express = require('express');
 const router = express.Router();
-const { isAuthorized, isAdmin } = require('./../middlwares/auth');
+const { isAuthorized, isAdmin, isManager } = require('./../middlwares/auth');
 
 const User = require('../models/user');
 /* GET home page. */
@@ -47,7 +48,7 @@ router.post('/teachers', isAdmin, (req, res, next) => {
 
 })
 
-router.get('/teachers', isAuthorized, function(req, res, next) {
+router.get('/teachers', isManager, function(req, res, next) {
 	User
 		.find({role: 'teacher'})
 		.then(teachers => {
@@ -58,7 +59,7 @@ router.get('/teachers', isAuthorized, function(req, res, next) {
 		})
 });
 
-router.get('/teachers/:id', isAuthorized, function(req, res, next) {
+router.get('/teachers/:id', isManager, function(req, res, next) {
 	const id = req.params.id;
 	User
 		.findById(id)
