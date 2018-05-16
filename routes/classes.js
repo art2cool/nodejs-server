@@ -37,6 +37,13 @@ router.get('/:id/lessons/add', (req, res) => {
 	res.render('collaboration-add', { title: `Create lessons`, clas: id});
 })
 
+router.get('/:id/lessons/:collaborationID/edit', async (req, res) => {
+	const coll = req.params.collaborationID;
+
+	const collaboration = await Collaboration.findById(coll)
+	res.render('collaboration-edit', { title: `Edit lessons`, collaboration});
+})
+
 router.get('/:id/lessons/:collaboration', isAuthorized, async function (req, res, next) {
 	const id = req.params.id;
 	const collaboration = req.params.collaboration;

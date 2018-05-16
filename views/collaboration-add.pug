@@ -12,18 +12,18 @@ block content
 				.form-group
 					label day
 					br
-					input(name='date', type='date')
+					input(name='date', type='date', value=`${new Date().toISOString().split('T')[0]}`)
 				.form-group
 					label since
 					br
-					input(name='since', type='time', value='9:30')
+					input(name='since', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
 				.form-group
 					label until
 					br
-					input(name='until', type='time', value='9:30')
+					input(name='until', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
 				.form-group
 					label Room
 					br
-					input(name='room', type='number')
+					input(name='room', type='text')
 				input.btn.btn-primary.pull-right(name='submit', type='submit', value='Create lessons')
-				a.btn.btn-default.pull-right(href='/classes', role='button') Cancel
+				a.btn.btn-default.pull-right(href=`/classes/${clas}`, role='button') Cancel

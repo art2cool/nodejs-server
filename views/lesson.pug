@@ -1,8 +1,9 @@
 extends layout
 
 block content
+	p #{collaboration.class._id}
 	h2 #{title}
-	#{JSON.stringify(collaboration,null, 2)}
+	a.btn.btn-info.pull-right(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit Lessons
 	p time: #{collaboration.since} - #{collaboration.until}
 	p room: #{collaboration.room}
 	p status: #{collaboration.status}

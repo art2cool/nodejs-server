@@ -1,5 +1,4 @@
 (function () {
-
   $(document).ready(function () {
     //rewrite tihs pls!
     const id = $('#account').attr('student');
@@ -32,7 +31,7 @@
 
     console.log(body);
     $.ajax({
-      method: 'PUT',
+      method: 'PATCH',
       url: `http://localhost:8000/collaborations/${collaboration}`,
       data: {students: JSON.stringify(body)}
     })
@@ -47,4 +46,5 @@
   $(".clickable-row").click(function () {
     window.location.href = $(this).data("href");
   });
-})()
+
+})();
