@@ -36,12 +36,24 @@
       data: {students: JSON.stringify(body)}
     })
     .done(function (student) {
-      console.log(clas)
       window.location.href = clas;
-      console.log('super')
     });
   })
 
+  $('#remove').click(function() {
+    const conf = confirm('Do you realy what to remove this lesson?');
+    if(!conf) return;
+    const link = $(this).data('info');
+
+    $.ajax({
+      method: 'DELETE',
+      url: `http://localhost:8000/${link}`,
+    })
+      .done(function (respose) {
+        const clas = respose.coll.class;
+        window.location.href = `http://localhost:8000/classes/${clas}`;
+      });
+  })
 
   $(".clickable-row").click(function () {
     window.location.href = $(this).data("href");

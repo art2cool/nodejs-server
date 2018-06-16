@@ -3,7 +3,8 @@ extends layout
 block content
 	p #{collaboration.class._id}
 	h2 #{title}
-	a.btn.btn-info.pull-right(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit Lessons
+	a.btn.btn-info.pull-right(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit
+	input.btn.btn-danger.pull-right#remove(type='button', data-info=`collaborations/${collaboration._id}`, value='Delete')
 	p time: #{collaboration.since} - #{collaboration.until}
 	p room: #{collaboration.room}
 	p status: #{collaboration.status}

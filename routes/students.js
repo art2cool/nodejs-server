@@ -34,16 +34,20 @@ router.get('/:id', isAuthorized, async function(req, res, next) {
 	}
 });
 
-router.post('/', isAdmin, (req, res) => {
+router.post('/', isAdmin, async (req, res, next) => {
 	const { name, email, phone, language, level, dayofbirth, account, notes} = req.body;
 	const student = new Student({
 		name, email, phone, language, level, dayofbirth, account, notes
 	});
-	student
-		.save()
-		.then( student => {
-			res.redirect(`/students/${student._id}`);
-		})
+	try {
+		const st = await student.save();
+		const type = account > 0 ? 'income' : 'outcome';
+		await Paid.create({ student: st._id, type, value: account });
+		res.redirect(`/students/${st._id}`);
+	} catch (e) {
+		next(e);
+	}
+
 });
 router.post('/:id/payment', isManager, async(req, res, next) => {
 	const id = req.params.id;

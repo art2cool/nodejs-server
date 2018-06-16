@@ -53,7 +53,7 @@ router.get('/:id/lessons/:collaboration', isAuthorized, async function (req, res
 		.then(collaboration => {
 			console.log('-----------clas.collaborations------------')
 			console.log(collaboration)
-			res.render('lesson', { title: `Collaborations`, collaboration });
+			res.render('lesson', { title: `Lessons`, collaboration });
 		})
 		.catch(e => {
 			next(e);

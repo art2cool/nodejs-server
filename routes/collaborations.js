@@ -20,6 +20,7 @@ router.patch('/:id', isAuthorized, (req, res, next) => {
     .then(collaboration => {
       res.send('ok')
     })
+    .catch(e => next(e));
 })
 
 router.post('/:id', async (req,res) => {
@@ -51,5 +52,14 @@ router.post('/', async (req,res) => {
   res.redirect(`/classes/${clas}`)
 })
 
+router.delete('/:id', async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const coll = await Collaboration.findByIdAndRemove(id)
+    res.send({coll});
+  } catch (e) {
+    next(e);
+  }
+})
 
 module.exports = router;
