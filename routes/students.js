@@ -34,6 +34,16 @@ router.get('/:id', isAuthorized, async function(req, res, next) {
 	}
 });
 
+router.get('/:id/edit', isAuthorized, async function (req, res, next) {
+	const id = req.params.id;
+	try {
+		const student = await Student.findById(id);
+		res.render('student-edit', { title: student.name, student });
+	} catch (e) {
+		next(e)
+	}
+});
+
 router.post('/', isAdmin, async (req, res, next) => {
 	const { name, email, phone, language, level, dayofbirth, account, notes} = req.body;
 	const student = new Student({

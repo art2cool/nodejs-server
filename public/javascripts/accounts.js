@@ -9,40 +9,40 @@
           url: `http://localhost:8000/students/${id}/payment`,
           data: { value }
         })
-        .done(function (student) {
-          $('#myModal').modal('toggle');
-          const htmlString = $('h4.account').html().replace(/\d+/, student.account);
-          $('h4.account').html(htmlString);
-        });
+          .done(function (student) {
+            $('#myModal').modal('toggle');
+            const htmlString = $('h4.account').html().replace(/\d+/, student.account);
+            $('h4.account').html(htmlString);
+          });
       })
     })
 
   })
 
-  $('#save').click(function() {
+  $('#save').click(function () {
     const collaboration = window.location.pathname.split('/lessons/').pop();
     const clas = window.location.pathname.split('/lessons/').shift();
     const body = [];
     $('.present').each((i, val) => {
       const present = $(val).prop('checked');
       const id = $(val).data('student');
-      if(present) body.push(id);
+      if (present) body.push(id);
     })
 
     console.log(body);
     $.ajax({
       method: 'PATCH',
       url: `http://localhost:8000/collaborations/${collaboration}`,
-      data: {students: JSON.stringify(body)}
+      data: { students: JSON.stringify(body) }
     })
-    .done(function (student) {
-      window.location.href = clas;
-    });
+      .done(function (student) {
+        window.location.href = clas;
+      });
   })
 
-  $('#remove').click(function() {
+  $('#remove').click(function () {
     const conf = confirm('Do you realy what to remove this lesson?');
-    if(!conf) return;
+    if (!conf) return;
     const link = $(this).data('info');
 
     $.ajax({

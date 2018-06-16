@@ -2,7 +2,7 @@ extends layout
 
 block content
 	h2 #{title}
-	a.btn.btn-info.pull-right(href='/classes/edit', role='button') Edit Class
+	a.btn.btn-info.pull-right(href=`/classes/${clas._id}/edit`, role='button') Edit Class
 	p Teacher: &nbsp;
 		a(href='/teachers/' + clas.teacher._id) #{clas.teacher.name}
 	p language: #{clas.language}
@@ -14,8 +14,9 @@ block content
 			|, &nbsp;
 	p Notes: #{clas.notes}
 
+	- var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();}) 
 	h3 Planed lessons
-	if clas.collaborations.planned.length
+	if planned.length
 		.row
 			.col-xs-12
 				.table-responsive
@@ -31,7 +32,7 @@ block content
 								th room
 								th Class
 						tbody
-						each collaboration, i in clas.collaborations.planned
+						each collaboration, i in planned
 							tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
 								td #{i+1}
 								td #{clas.students.map(el => ` ${el.name}`)}
@@ -42,9 +43,11 @@ block content
 								td #{collaboration.class}
 	else
 		p There are no planned lessons for this class yet
-		a.btn.btn-info.pull-left(href=`${clas._id}/lessons/add`, role='button') Create first lessons
+		a.btn.btn-info.pull-left(href=`${clas._id}/lessons/add`, role='button') Create lessons
+		br
 
-	if clas.collaborations.review.length
+	- var review = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until <= new Date();}) 
+	if review.length
 		h3 Unresolved lessons
 		.row
 				.col-xs-12
@@ -61,17 +64,17 @@ block content
 									th room
 									th Class
 							tbody
-							each collaboration, i in clas.collaborations.review
+							each collaboration, i in review
 								tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
 									td #{i+1}
 									td #{clas.students.map(el => ` ${el.name}`)}
 									td #{collaboration.since}
 									td #{collaboration.until}
-									td #{collaboration.status}
+									td review
 									td #{collaboration.room}
 									td #{collaboration.class}
-
-	if clas.collaborations.finished.length
+	- var finished = clas.collaborations.filter(el => el.status === 'finished') 
+	if finished.length
 		h3 Completed lessons
 		.row
 			.col-xs-12
@@ -85,13 +88,13 @@ block content
 							//- 		th #{collaboration.room}
 							tr
 								th
-								each collaboration, i in clas.collaborations.finished
+								each collaboration, i in finished
 									th #{collaboration.since.getDate()+'/'+collaboration.since.getMonth()+'/'+collaboration.since.getFullYear()}
 							tbody
 							each student, i in clas.students
 								tr
 									td #{student.name}
-									each collaboration, i in clas.collaborations.finished
+									each collaboration, i in finished
 										td
 											if collaboration.students.map(el => el.toString()).includes(student._id.toString())
 												span.glyphicon.glyphicon-ok.text-success

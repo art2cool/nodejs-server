@@ -26,21 +26,7 @@ router.get('/login', function(req, res, next) {
 
 router.post('/register', multer({ dest: './uploads/'}).single('upl'), function (req, res, next) {
 	const { name, email, password, password2 } = req.body;
-	// Check for Image field
-	// if(req.file) {
-	// 	console.log('uploading file...');
 
-	// 	var profileImageOriginalName = req.file.originalname;
-	// 	var profileImageName 		 = req.file.name;
-	// 	var profileImageMine 		 = req.file.mimetype;
-	// 	var profileImagePath 		 = req.file.path;
-	// 	var profileImageExt 		 = req.file.extension;
-	// 	var profileImageSize 		 = req.file.size;
-	// } else {
-	// 	// set default img
-	// 	var profileImageName = 'noimage.jpg';
-	// }
-	
 	// form validator
 	req.checkBody('name', 'Name field is required').notEmpty();
 	req.checkBody('email', 'Email field is required').notEmpty();
@@ -65,7 +51,6 @@ router.post('/register', multer({ dest: './uploads/'}).single('upl'), function (
 			.save()
 			.then(user => {
 				req.flash('success', 'You are now refistered and may log in');
-			//	res.location('/');
 				res.redirect('/');
 			})
 			.catch(err => next(err))

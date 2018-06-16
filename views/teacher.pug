@@ -2,6 +2,7 @@ extends layout
 
 block content
 	h2 #{title}
+	a.btn.btn-info.pull-right(href=`/teachers/${teacher._id}/edit`, role='button') Edit Teacher
 	p Email: #{teacher.email}
 	p Phone: #{teacher.phone}
 	p Coeficient: #{teacher.coeficient}

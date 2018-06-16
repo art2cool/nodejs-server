@@ -8,7 +8,7 @@ const Student = require('../models/students');
 const Collaboration = require('../models/collaboration');
 /* GET home page. */
 router.get('/add', isManager, async (req, res, next) => {
-	const teachers = await User.find({role: 'teacher'}).select('name');
+	const teachers = await User.find({ role: 'teacher' }).select('name');
 	const students = await Student.find({}).select('name');
 
 	res.render('class-add', {
@@ -29,19 +29,19 @@ router.get('/', isAuthorized, function (req, res, next) {
 		.catch(err => {
 			next(err)
 		})
-	})
+})
 
 router.get('/:id/lessons/add', (req, res) => {
 	const id = req.params.id;
 
-	res.render('collaboration-add', { title: `Create lessons`, clas: id});
+	res.render('collaboration-add', { title: `Create lessons`, clas: id });
 })
 
 router.get('/:id/lessons/:collaborationID/edit', async (req, res) => {
 	const coll = req.params.collaborationID;
 
 	const collaboration = await Collaboration.findById(coll)
-	res.render('collaboration-edit', { title: `Edit lessons`, collaboration});
+	res.render('collaboration-edit', { title: `Edit lessons`, collaboration });
 })
 
 router.get('/:id/lessons/:collaboration', isAuthorized, async function (req, res, next) {
@@ -50,8 +50,8 @@ router.get('/:id/lessons/:collaboration', isAuthorized, async function (req, res
 	Collaboration
 		.findById(collaboration)
 		.populate({ path: 'class', select: 'students', populate: { path: 'students', select: 'name' } })
+		.lean()
 		.then(collaboration => {
-			console.log('-----------clas.collaborations------------')
 			console.log(collaboration)
 			res.render('lesson', { title: `Lessons`, collaboration });
 		})
@@ -70,14 +70,9 @@ router.get('/:id', isAuthorized, async function (req, res, next) {
 			.lean()
 			.exec();
 
-		const coll = await Collaboration
+		clas.collaborations = await Collaboration
 			.find({ class: id })
 			.exec();
-
-		clas.collaborations = {};
-		clas.collaborations.finished = coll.filter(el => el.status === 'finished')
-		clas.collaborations.review = coll.filter(el => el.status === 'review')
-		clas.collaborations.planned = coll.filter(el => el.status === 'planned')
 
 		res.render('class', { title: `${clas.language} ${clas.level} (${clas.teacher.name})`, clas });
 	} catch (e) {
@@ -86,8 +81,8 @@ router.get('/:id', isAuthorized, async function (req, res, next) {
 });
 
 router.post('/', isAdmin, async (req, res) => {
-	const {teacher, students, language, price, level, type, notes} = req.body;
-	const clas = await Class.create({ teacher, students, language, price, level, type, notes})
+	const { teacher, students, language, price, level, type, notes } = req.body;
+	const clas = await Class.create({ teacher, students, language, price, level, type, notes })
 
 	res.redirect(`/classes/${clas._id}`)
 })

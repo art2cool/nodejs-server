@@ -172,7 +172,7 @@ function generateCollaborations(classes) {
     const day = new Date();
     const collaboration = {
       class: clas.id,
-      status: faker.random.arrayElement(['review']),
+      status: faker.random.arrayElement(['planned']),
       room: faker.random.arrayElement(['n1', 'n2', 'n3', 'n4', 'n5']),
       since: new Date(day.getTime() - 1000 * 60 * 60 * 2),
       until: day,
