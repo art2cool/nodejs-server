@@ -95,7 +95,7 @@ router.post('/:id/payment', isManager, async(req, res, next) => {
 	try {
 		await Paid.create({student: id, type, value});
 		const student = await Student.findById(id);
-		student.notes += value;
+		student.account += value;
 		await student.save();
 		res.json(student)
 	} catch(e) {
