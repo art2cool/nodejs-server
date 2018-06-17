@@ -4,7 +4,7 @@ const { isAuthorized, isAdmin, isManager } = require('./../middlwares/auth');
 
 const Class = require('../models/classes');
 const User = require('../models/user');
-const Student = require('../models/students');
+const Student = require('../models/student');
 const Collaboration = require('../models/collaboration');
 /* GET home page. */
 router.get('/add', isManager, async (req, res, next) => {

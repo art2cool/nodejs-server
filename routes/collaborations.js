@@ -3,24 +3,30 @@ const router = express.Router();
 const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 
 const Collaboration = require('../models/collaboration');
+const Student = require('../models/student');
+const Paid = require('../models/paid');
 
-router.patch('/:id', isAuthorized, (req, res, next) => {
+router.patch('/:id', isAuthorized, async (req, res, next) => {
   const id = req.params.id;
-  const body = JSON.parse(req.body.students);
-  console.log(body)
-  Collaboration
-    .findById(id)
-    .then(collaboration => {
+  const presentStudents = JSON.parse(req.body.students);
+  try {
+    const coll = await Collaboration.findById(id).populate({path: 'class', select: 'price'});
+    const students = await Student.find({_id: {$in: presentStudents}}).select('account');
 
-      collaboration.students = body;
-      collaboration.status = 'finished';
+    students.map(async student => {
+      await Paid.create({ student: student._id, type: 'outcome', value: -coll.class.price });
+      student.account -= coll.class.price;
+      await student.save();
+    });
+    coll.students = presentStudents;
+    coll.status = 'finished';
+    
+    await coll.save();
 
-      return collaboration.save();
-    })
-    .then(collaboration => {
-      res.send('ok')
-    })
-    .catch(e => next(e));
+    res.send('ok');
+  } catch(e) {
+    next(e);
+  }
 })
 
 router.post('/:id', async (req,res) => {

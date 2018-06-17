@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { isAuthorized, isAdmin, isManager } = require('./../middlwares/auth');
 
-const Student = require('../models/students');
+const Student = require('../models/student');
 const Paid = require('../models/paid');
 /* GET home page. */
 router.get('/add', isAuthorized, (req, res, next) => {

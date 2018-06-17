@@ -28,8 +28,6 @@
       const id = $(val).data('student');
       if (present) body.push(id);
     })
-
-    console.log(body);
     $.ajax({
       method: 'PATCH',
       url: `http://localhost:8000/collaborations/${collaboration}`,

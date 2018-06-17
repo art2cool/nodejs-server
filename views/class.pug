@@ -16,12 +16,16 @@ block content
 
 	- var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();}) 
 	h3 Planed lessons
+	if !planned.length
+		p There are no planned lessons for this class yet
+	a.btn.btn-info.pull-right(href=`${clas._id}/lessons/add`, role='button') Create lesson
+	br
+	br
 	if planned.length
 		.row
 			.col-xs-12
 				.table-responsive
 					table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-						caption.text-center List of usersyou can edit everyone of them
 						thead
 							tr
 								th #
@@ -41,10 +45,6 @@ block content
 								td #{collaboration.status}
 								td #{collaboration.room}
 								td #{collaboration.class}
-	else
-		p There are no planned lessons for this class yet
-		a.btn.btn-info.pull-left(href=`${clas._id}/lessons/add`, role='button') Create lessons
-		br
 
 	- var review = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until <= new Date();}) 
 	if review.length
@@ -82,10 +82,6 @@ block content
 					table.table.table-bordered.table-striped(	summary="This table shows how to create responsive tables using Bootstrap's default functionality")
 						caption.text-center List of completed lessons
 						thead
-							//- tr
-							//- 	th
-							//- 	each collaboration, i in clas.collaborations.finished
-							//- 		th #{collaboration.room}
 							tr
 								th
 								each collaboration, i in finished
