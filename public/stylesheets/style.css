@@ -3,15 +3,6 @@ body {
 	font-family: arial;
 }
 
-footer {
-	background: #f4f4f4;
-	height: 40px;
-	text-align: center;
-	margin-top: 30px;
-	padding-top: 10px;
-	overflow: auto;
-	width: 100%;
-}
 textarea {
 	resize: none;
 }
