@@ -18,6 +18,22 @@ router.get('/add', isManager, async (req, res, next) => {
 	});
 });
 
+router.get('/:id/edit', isAdmin, async (req, res, next) => {
+	const id = req.params.id;
+	const clas = await Class.findById(id)
+		.populate({ path: 'teacher', select: 'name' })
+		.populate({ path: 'students', select: 'name' });
+	const teachers = await User.find({ role: 'teacher' }).select('name');
+	const students = await Student.find({}).select('name');
+
+	res.render('class-edit', {
+		title: 'Edit class',
+		teachers,
+		students,
+		clas
+	});
+});
+
 router.get('/', isAuthorized, function (req, res, next) {
 	Class
 		.find({})
@@ -83,6 +99,14 @@ router.get('/:id', isAuthorized, async function (req, res, next) {
 router.post('/', isAdmin, async (req, res) => {
 	const { teacher, students, language, price, level, type, notes } = req.body;
 	const clas = await Class.create({ teacher, students, language, price, level, type, notes })
+
+	res.redirect(`/classes/${clas._id}`)
+})
+
+router.post('/:id', isAdmin, async (req, res) => {
+	const id = req.params.id;
+	const { teacher, students, language, price, level, type, notes } = req.body;
+	const clas = await Class.findByIdAndUpdate({_id: id}, { teacher, students, language, price, level, type, notes })
 
 	res.redirect(`/classes/${clas._id}`)
 })
