@@ -45,9 +45,9 @@ router.get('/:id/edit', isAuthorized, async function (req, res, next) {
 });
 
 router.post('/', isAdmin, async (req, res, next) => {
-	const { name, email, phone, language, level, dayofbirth, account, notes} = req.body;
+	const { name, email, phone, language, level, dayOfBirth, account, notes} = req.body;
 	const student = new Student({
-		name, email, phone, language, level, dayofbirth, account, notes
+		name, email, phone, language, level, dayOfBirth, account, notes
 	});
 	try {
 		const st = await student.save();
@@ -57,8 +57,37 @@ router.post('/', isAdmin, async (req, res, next) => {
 	} catch (e) {
 		next(e);
 	}
-
 });
+
+router.post('/:id', isAdmin, async (req, res, next) => {
+	const id = req.params.id;
+	const { name, email, phone, language, level, dayOfBirth, account, notes } = req.body;
+	try {
+		const student = await Student.findById(id);
+		
+		if(student.account !== account) {
+			const type = student.account < account ? 'income' : 'outcome';
+			const subtraction = account - student.account;
+			await Paid.create({ student: student._id, type, value: subtraction });
+		}
+
+		student.name = name;
+		student.email = email;
+		student.phone = phone;
+		student.language = language;
+		student.level = level;
+		student.dayOfBirth = dayOfBirth;
+		student.account = account;
+		student.notes = notes;
+
+		await student.save();
+		res.redirect(`/students/${student._id}`);
+	} catch (e) {
+		next(e);
+	}
+});
+
+
 router.post('/:id/payment', isManager, async(req, res, next) => {
 	const id = req.params.id;
 	const value = ~~req.body.value;
@@ -66,7 +95,7 @@ router.post('/:id/payment', isManager, async(req, res, next) => {
 	try {
 		await Paid.create({student: id, type, value});
 		const student = await Student.findById(id);
-		student.account += value;
+		student.notes += value;
 		await student.save();
 		res.json(student)
 	} catch(e) {
