@@ -5,6 +5,8 @@ const router = express.Router();
 const { isAuthorized, isAdmin, isManager } = require('./../middlwares/auth');
 
 const User = require('../models/user');
+const Collaboration = require('../models/collaboration');
+const Class = require('../models/classes');
 /* GET home page. */
 router.get('/', isAuthorized, function(req, res, next) {
 	User
@@ -34,7 +36,7 @@ router.post('/teachers', isAdmin, hashingPassword, (req, res, next) => {
 		role: 'teacher',
 		password
 	});
-	
+
 	teacher
 		.save()
 		.then(teacher => {
@@ -56,17 +58,13 @@ router.get('/teachers', isManager, function(req, res, next) {
 	})
 });
 
-router.get('/teachers/:id', isManager, function(req, res, next) {
+router.get('/teachers/:id', isManager, async function(req, res, next) {
 	const id = req.params.id;
-	User
-	.findById(id)
-	.select('-password')
-	.then(teacher => {
+	try {
 		res.render('teacher', { title: teacher.name, teacher });
-	})
-	.catch(err => {
-		next(err)
-	})
+	} catch(e) {
+		next(e);
+	}
 });
 
 router.get('/teachers/:id/edit', isAdmin, async (req, res, next) => {
@@ -109,7 +107,7 @@ function hashingPassword(req, res, next){
 	if (!req.body.password) {
 		delete req.body.password;
 		return next();
-	} 
+	}
 
 	bcrypt.hash(req.body.password, 10, (err, hash) => {
 		if (err) throw err;
