@@ -14,7 +14,7 @@ block content
 			|, &nbsp;
 	p Notes: #{clas.notes}
 
-	- var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();}) 
+	- var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();})
 	h3 Planed lessons
 	if !planned.length
 		p There are no planned lessons for this class yet
@@ -40,13 +40,13 @@ block content
 							tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
 								td #{i+1}
 								td #{clas.students.map(el => ` ${el.name}`)}
-								td #{collaboration.since}
-								td #{collaboration.until}
+								td #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
+								td #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
 								td #{collaboration.status}
 								td #{collaboration.room}
 								td #{collaboration.class}
 
-	- var review = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until <= new Date();}) 
+	- var review = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until <= new Date();})
 	if review.length
 		h3 Unresolved lessons
 		.row
@@ -58,8 +58,8 @@ block content
 								tr
 									th #
 									th presents
-									th since
-									th until
+									th Day
+									th time
 									th status
 									th room
 									th Class
@@ -68,12 +68,12 @@ block content
 								tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
 									td #{i+1}
 									td #{clas.students.map(el => ` ${el.name}`)}
-									td #{collaboration.since}
-									td #{collaboration.until}
+									td #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
+									td #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
 									td review
 									td #{collaboration.room}
 									td #{collaboration.class}
-	- var finished = clas.collaborations.filter(el => el.status === 'finished') 
+	- var finished = clas.collaborations.filter(el => el.status === 'finished')
 	if finished.length
 		h3 Completed lessons
 		.row

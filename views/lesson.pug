@@ -4,7 +4,8 @@ block content
 	h2 #{title}
 	a.btn.btn-info.pull-right(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit
 	input.btn.btn-danger.pull-right#remove(type='button', data-info=`collaborations/${collaboration._id}`, value='Delete')
-	p time: #{collaboration.since} - #{collaboration.until}
+	p Day: #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
+	p timeframe: #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
 	p room: #{collaboration.room}
 	p status: #{collaboration.status}
 	if collaboration.status == 'planned' && collaboration.until <= new Date()

@@ -61,6 +61,7 @@ router.get('/teachers', isManager, function(req, res, next) {
 router.get('/teachers/:id', isManager, async function(req, res, next) {
 	const id = req.params.id;
 	try {
+		const teacher = await User.findById(id)
 		res.render('teacher', { title: teacher.name, teacher });
 	} catch(e) {
 		next(e);

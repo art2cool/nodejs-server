@@ -9,7 +9,6 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
-
 const db = require('./config/db');
 
 const routes = require('./routes/index');
@@ -19,6 +18,7 @@ const classes = require('./routes/classes');
 const collaborations = require('./routes/collaborations');
 
 const app = express();
+app.locals.moment = require('moment');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

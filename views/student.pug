@@ -7,8 +7,8 @@ block content
 	p Phone: #{student.phone}
 	p language: #{student.language}
 	p level: #{student.level}
-	p Day of birth.: #{student.dayOfBirth}
-	p Created at.: #{student.createAt}
+	p Day of birth.: #{moment(student.dayOfBirth).format("DD/MM/YYYY")}
+	p Created at.: #{moment(student.createAt).format("DD/MM/YYYY")}
 	br
 	h4.account Account: #{student.account}грн.
 		| &nbsp;
@@ -31,7 +31,7 @@ block content
 					td #{i+1}
 					td #{paid.value}
 					td #{paid.type}
-					td #{paid.date}
+					td #{moment(paid.date).format("DD MMMM YYYY, HH:mm")}
 	#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
 		.modal-dialog(role='document')
 			.modal-content
