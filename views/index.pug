@@ -1,9 +1,6 @@
 extends layout
 
 block content
-	h1 Member Area
-	p Welcome to the member area!
-		if users
-			ul Username
-			each user, i in users
-				li #{user.name}
+	h1 Calendar
+	//- p #{JSON.stringify(events, null, 2)}
+	#calendar(data-events= events)

@@ -8,16 +8,48 @@ const User = require('../models/user');
 const Collaboration = require('../models/collaboration');
 const Class = require('../models/classes');
 /* GET home page. */
-router.get('/', isAuthorized, function(req, res, next) {
-	User
-		.find({})
-		.then( users => {
-			res.render('index', { title: 'Members', users});
+router.get('/', isAuthorized, async (req, res, next) => {
+	try {
+		const events = [];
+		let lessons = await Collaboration.find({}).populate({
+			path: 'class',
+			select: 'language level teacher'
 		})
-		.catch(err => {
-			next(err)
+		lessons.forEach( less => {
+			events.push({
+				title: `${less.class.language}(${less.class.level}), ${less.class.teacher}`,
+				start: less.since,
+				end: less.until,
+				editable: true
+			})
 		})
+		res.render('index', { title: 'Calendar', events});
+		} catch (err) {
+		next(err)
+	}
 });
+
+  // {
+  // 	createAt: 2018 - 04 - 19 T06: 00: 33.600 Z,
+  // 	students: [5 ad83080222d84209af6adca],
+  // 	_id: 5 ad83081222d84209af6af80,
+  // 	class: 5 ad83081222d84209af6ade4,
+  // 	status: 'review',
+  // 	room: 'n1',
+  // 	since: 2018 - 04 - 19 T04: 00: 33.550 Z,
+  // 	until: 2018 - 04 - 19 T06: 00: 33.550 Z,
+  // 	__v: 0
+  // }, {
+  // 	createAt: 2018 - 05 - 10 T06: 43: 32.348 Z,
+  // 	students: [],
+  // 	_id: 5 af3ea141705eb2a6abb098d,
+  // 	status: 'planned',
+  // 	class: 5 ae17914f54b44366532eb1b,
+  // 	since: 2017 - 12 - 31 T23: 01: 00.000 Z,
+  // 	until: 2018 - 01 - 01 T01: 00: 00.000 Z,
+  // 	room: '2',
+  // 	__v: 0
+  // },
 
 router.get('/teachers/add', isAuthorized, (req, res, next) => {
 	res.render('teacher-add', {
