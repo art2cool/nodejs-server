@@ -1,0 +1,33 @@
+// Theme colors
+$primary-color: #FFD200;
+$secondary-color: #9b9b9b;
+
+$snow: #fff;
+$night: #000;
+
+// Font
+$primary-font: 'Roboto', sans-serif;
+$secondary-font: 'InputMono'; 
+
+// Mediaqueries
+$screen-lg: 1200px;
+$screen-lg-max: $screen-lg - 1;
+$screen-md: 992px;
+$screen-md-max: $screen-md - 1;
+$screen-sm: 768px;
+$screen-sm-max: $screen-sm - 1;
+$screen-xs: 561px;
+$screen-xs-max: $screen-xs - 1;
+
+// Transition
+$default-transition: .15s ease-in-out;
+
+// Etc
+$circle: 50%;
+$menu-zIndex: 9000;
+$modal-zIndex: 9999;
+
+$button-radius: 4px;
+
+$counter-progress-color: #d8d8d8;
+$counter-progress-radius: 4px;

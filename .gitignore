@@ -9,4 +9,6 @@
 *.psd
 *.ai
 
+.history
+
 node_modules/

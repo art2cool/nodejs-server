@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif; 
+  -ms-text-size-adjust: 100%; 
+  -webkit-text-size-adjust: 100%;
+}
+
+body{
+  margin: 0;
+  overflow-x: hidden;
+
+  font: {
+    size: 14px;
+    family: $primary-font;
+  }
+
+}
+
+// root
+#root{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// main layout wrapper
+.main-wrapper{
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section{
+  width: 100%;
+}
