@@ -1,4 +1,5 @@
-@import './extends/bootstrap.min';
+// @import './extends/bootstrap-reboot.min';
+// @import './extends/bootstrap.min';
 @import './base/fonts';
 @import './base/variables';
 @import './base/layout';
@@ -6,3 +7,5 @@
 
 @import './extends/old-styles';
 @import './components/navbar';
+
+@import './base/header';

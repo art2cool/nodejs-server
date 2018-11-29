@@ -14,7 +14,7 @@ body{
   
   color: $primary-text-color;
   font: {
-    size: 16px;
+    size: 14px;
     family: $primary-font;
   }
   background-color: $bg-color;
@@ -32,4 +32,6 @@ body{
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
+
+  margin-top: -44px;
 }
