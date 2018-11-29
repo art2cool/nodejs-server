@@ -1,0 +1,12 @@
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: {
+    top: 15px;
+    bottom: 15px;
+  }
+
+  background: $primary-gradient;
+}
