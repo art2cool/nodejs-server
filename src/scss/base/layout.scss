@@ -33,5 +33,11 @@ body{
   display: flex;
   flex-wrap: wrap;
 
-  margin-top: -44px;
+  margin-top: -37px;
+  padding-bottom: 30px;
+}
+
+ol, ul {
+  margin: 0;
+  padding: 0 0 0 15px;
 }

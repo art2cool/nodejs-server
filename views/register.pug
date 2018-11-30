@@ -6,7 +6,7 @@ block content
       .card-body
         h1.card-title Register
         .card-subtitle.mb-3 Please register using the form bellow
-        .errors
+        .errors.notification-wrapper
           if errors
             each error, i in errors
               .alert.alert-danger.alert-dismissible.fade.show(role='alert')

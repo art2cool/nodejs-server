@@ -15,21 +15,21 @@ html
       header.header
         nav.navbar.navbar-expand-sm.navbar-custom
           
-          a.navbar-brand(href='/') NodeAuth
+          a.navbar-brand(href='/') Linguist
           button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
           .collapse.navbar-collapse.ml-auto
             ul.navbar-nav.ml-auto
               if user
                 li(class=(title === 'Members' ? 'active' : ''))
-                  a(href='/') Members
+                  a.nav-link(href='/') Members
                 li(class=(title === 'Students' ? 'active' : ''))
-                  a(href='/students') Students
+                  a.nav-link(href='/students') Students
                 if user.role === 'admin' || user.role === 'manager	'
                   li(class=(title === 'Teachers' ? 'active' : ''))
-                    a(href='/teachers') Teachers
+                    a.nav-link(href='/teachers') Teachers
                 li(class=(title === 'Classes' ? 'active' : ''))
-                  a(href='/classes') Classes
+                  a.nav-link(href='/classes') Classes
               if !user
                 li(class=(title === 'Register' ? 'active' : ''))
                   a.nav-link(href='/users/register') Register
@@ -38,14 +38,16 @@ html
             ul.nav.navbar-nav.navbar-right
               if user
                 li
-                  a(href='/users/logout') Logout
+                  a.nav-link(href='/users/logout') Logout
       main.main
         .container
           != messages()
           block content
       footer.footer
         .text-center
-          span Copyright &copy; #{new Date().getFullYear()} Hack Sparrow
+          span Copyright &copy; #{new Date().getFullYear()} Linguist
+          br
+          span Developed by Rolique
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js')

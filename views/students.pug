@@ -1,29 +1,32 @@
 extends layout
 
 block content
-	h2 #{title}
-	a.btn.btn-info.pull-right(href='/students/add', role='button') Add Student
-	.container
-		.row
-			.col-xs-12
-				.table-responsive
-					table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-						caption.text-center List of usersyou can edit everyone of them
-						thead
-							tr
-								th #
-								th Name
-								th E-mail
-								th Phone
-								th Language
-								th Notes
-						tbody
-						each student, i in students
-							tr.clickable-row(data-href='/students/' + student._id)
-								td #{i+1}
-								td #{student.name}
-								td #{student.email}
-								td #{student.phone}
-								td #{student.language}
-								td
-									div.notes #{student.notes}
+  .col-xs-12
+    .card
+      .card-body
+        .row
+          .col-6
+            h1.card-title #{title}
+          .col-6.text-right
+            a.btn.btn-primary(href='/students/add', role='button') Add Student
+        .table-responsive
+          table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+            //- caption.text-center List of users you can edit everyone of them
+            thead
+              tr
+                //- th #
+                th Name
+                th E-mail
+                th Phone
+                th Language
+                th Notes
+            tbody
+            each student, i in students
+              tr.clickable-row(data-href='/students/' + student._id)
+                //- td #{i+1}
+                td #{student.name}
+                td #{student.email}
+                td #{student.phone}
+                td #{student.language}
+                td
+                  div.notes #{student.notes}

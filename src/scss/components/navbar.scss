@@ -6,10 +6,21 @@
   color: $snow;
 
   .navbar-brand{
-    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $snow;
+    font: {
+      weight: 600;
+      size: 1.5rem;
+    }
   }
 
   a{
-    color: $primary-text-color;
+    color: $snow;
+  }
+
+  .active a{
+    color: $gradient-color-2;
+    background-color: $snow;
   }
 }

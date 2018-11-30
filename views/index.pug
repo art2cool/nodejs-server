@@ -1,9 +1,13 @@
 extends layout
 
 block content
-	h1 Member Area
-	p Welcome to the member area!
-		if users
-			ul Username
-			each user, i in users
-				li #{user.name}
+  .col-md-10.offset-md-1
+    .card
+      .card-body
+        h1.card-title Member area
+        .card-subtitle.mb-3 Welcome to the member area, #{user.name}!
+
+        if users
+          ol
+            each user, i in users
+              li #{user.name}

@@ -1,0 +1,9 @@
+.btn-primary{
+  border: 0;
+  background: $primary-gradient;
+
+  &:hover{
+    box-shadow: $primary-shadow;
+  }
+  
+}
