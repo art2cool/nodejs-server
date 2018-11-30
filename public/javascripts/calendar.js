@@ -1,27 +1,32 @@
   $(function() {
     const events = $('#calendar').data('events')
+    const resources = $("#calendar").data("resources");
     console.log(events);
-    $('#calendar').fullCalendar({
+    $("#calendar").fullCalendar({
       header: {
-        left: 'title',
-        center: '',
-        right: 'today week month day list prev,next'
+        left: "today prev,next",
+        center: "title",
+        right: "timelineDay,timelineTenDay,timelineMonth"
       },
-      buttonText: {
-        today: 'today',
-        month: 'month',
-        week: 'week',
-        day: 'day',
-        list: 'list'
+      defaultView: "timelineTenDay",
+      views: {
+        timelineDay: {
+          buttonText: ":30 slots",
+          slotDuration: "00:30"
+        },
+        timelineTenDay: {
+          type: "timeline",
+          duration: { days: 10 }
+        }
       },
-      schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+      resourceLabelText: "Rooms",
+      schedulerLicenseKey: "CC-Attribution-NonCommercial-NoDerivatives",
+      resources,
       events,
-      eventClick: function (event, element) {
-
+      eventClick: function(event, element) {
         event.title = "CLICKED!";
 
-        $('#calendar').fullCalendar('updateEvent', event);
-
+        $("#calendar").fullCalendar("updateEvent", event);
       }
     });
 

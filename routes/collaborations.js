@@ -5,20 +5,32 @@ const { isAuthorized, isAdmin } = require('./../middlwares/auth');
 const Collaboration = require('../models/collaboration');
 const Student = require('../models/student');
 const Paid = require('../models/paid');
+const Class = require('../models/classes');
 
 router.patch('/:id', isAuthorized, async (req, res, next) => {
   const id = req.params.id;
-  const presentStudents = JSON.parse(req.body.students);
+  const allStudents = JSON.parse(req.body.students);
+  console.log(JSON.parse(req.body.students));
+  const presentStudents = allStudents
+    .filter(el => el.present)
+    .map(el => el.id);
+  console.log(presentStudents)
+  
   try {
-    const coll = await Collaboration.findById(id).populate({path: 'class', select: 'price'});
-    const students = await Student.find({_id: {$in: presentStudents}}).select('account');
+    const coll = await Collaboration.findById(id);
+    const clas = await Class.findById(coll.class).select('type price');
+
+    const students = await Student.find({
+      _id: { $in: allStudents.map(el => el.id) }
+    }).select("account");
 
     students.map(async student => {
-      await Paid.create({ student: student._id, type: 'outcome', value: -coll.class.price });
-      student.account -= coll.class.price;
+      await Paid.create({ student: student._id, type: 'outcome', value: -clas.price });
+      student.account -= clas.price;
       await student.save();
     });
-    coll.students = presentStudents;
+    coll.students = presentStudents
+      
     coll.status = 'finished';
     
     await coll.save();

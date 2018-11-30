@@ -25,7 +25,7 @@
     $('.present').each((i, val) => {
       const present = $(val).prop('checked');
       const id = $(val).data('student');
-      if (present) body.push(id);
+     body.push({id, present});
     })
     $.ajax({
       method: 'PATCH',

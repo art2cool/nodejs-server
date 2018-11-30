@@ -20,8 +20,8 @@ html
 				#navbar.collapse.navbar-collapse
 					ul.nav.navbar-nav
 						if user
-							li(class=(title === 'Members' ? 'active' : ''))
-								a(href='/') Members
+							li(class=(title === 'Calendar' ? 'active' : ''))
+								a(href='/') Calendar
 							li(class=(title === 'Students' ? 'active' : ''))
 								a(href='/students') Students
 							if user.role === 'admin' || user.role === 'manager	'
