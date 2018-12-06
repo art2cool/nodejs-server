@@ -3,9 +3,10 @@ extends layout
 block content
   .col-md-6.offset-md-3
     .card
-      .card-body
+      .card-header
         h1.card-title Login
-        .card-subtitle.mb-3 Please login below
+        .card-subtitle Please login below
+      .card-body
         form(method='post', action='/users/login')
           .form-group
             label Email

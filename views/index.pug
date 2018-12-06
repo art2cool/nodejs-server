@@ -3,9 +3,10 @@ extends layout
 block content
   .col-md-10.offset-md-1
     .card
-      .card-body
+      .card-header
         h1.card-title Member area
-        .card-subtitle.mb-3 Welcome to the member area, #{user.name}!
+        .card-subtitle Welcome to the member area, #{user.name}!
+      .card-body
 
         if users
           ol

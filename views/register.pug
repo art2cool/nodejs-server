@@ -3,9 +3,10 @@ extends layout
 block content
   .col-md-6.offset-md-3
     .card
-      .card-body
+      .card-header
         h1.card-title Register
-        .card-subtitle.mb-3 Please register using the form bellow
+        .card-subtitle Please register using the form bellow
+      .card-body
         .errors.notification-wrapper
           if errors
             each error, i in errors

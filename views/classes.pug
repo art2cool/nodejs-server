@@ -1,31 +1,34 @@
 extends layout
 
 block content
-	h2 #{title}
-	a.btn.btn-info.pull-right(href='/classes/add', role='button') Create Class
-	.container
-		.row
-			.col-xs-12
-				.table-responsive
-					table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-						caption.text-center List of classes can edit everyone of them
-						thead
-							tr
-								th #
-								th Teacher
-								th Students
-								th Language
-								th Level
-								th Type
-								th Notes
-						tbody
-						each clas, i in classes
-							tr.clickable-row(data-href='classes/' + clas._id)
-								td #{i+1}
-								td #{clas.teacher.name}
-								td #{clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
-								td #{clas.language}
-								td #{clas.level}
-								td #{clas.type}
-								td
-									div.notes #{clas.notes}
+  .col-xs-12
+    .card
+      .card-header
+        .row.align-items-center
+          .col-6
+            h1.card-title #{title}
+          .col-6.text-right
+            a.btn.btn-primary.pull-right(href='/classes/add', role='button') Create Class
+      .card-body
+        .table-responsive
+          table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
+            //- caption.text-center List of classes can edit everyone of them
+            thead
+              tr
+                th Teacher
+                th Students
+                th Language
+                th Level
+                th Type
+                th Notes
+            tbody
+            each clas, i in classes
+              tr.clickable-row(data-href='classes/' + clas._id)
+                td #{clas.teacher.name}
+                td #{clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
+                td #{clas.language}
+                td #{clas.level}
+                td #{clas.type}
+                td
+                  div.notes #{clas.notes}
+                  

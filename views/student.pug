@@ -1,51 +1,83 @@
 extends layout
 
 block content
-	h2 #{title}
-	a.btn.btn-info.pull-right(href=`/students/${student._id}/edit`, role='button') Edit Student
-	p Email: #{student.email}
-	p Phone: #{student.phone}
-	p language: #{student.language}
-	p level: #{student.level}
-	p Day of birth.: #{moment(student.dayOfBirth).format("DD/MM/YYYY")}
-	p Created at.: #{moment(student.createAt).format("DD/MM/YYYY")}
-	br
-	h4.account Account: #{student.account}грн.
-		| &nbsp;
-		button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
-			i.glyphicon.glyphicon-plus-sign#add-accounts
-	a.btn.btn-primary(role='button', data-toggle='collapse', href='#collapsePayments', aria-expanded='false', aria-controls='collapsePayments')
-		| Show payments history
-	div.collapse#collapsePayments
-		br
-		table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-			thead
-				tr
-					th #
-					th Value
-					th Type
-					th date
-			tbody
-			each paid, i in paids
-				tr
-					td #{i+1}
-					td #{paid.value}
-					td #{paid.type}
-					td #{moment(paid.date).format("DD MMMM YYYY, HH:mm")}
-	#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
-		.modal-dialog(role='document')
-			.modal-content
-				.modal-header
-					button.close(type='button', data-dismiss='modal', aria-label='Close')
-						span(aria-hidden='true') ×
-					h4#myModalLabel.modal-title #{student.name} accounts | #{student.account}грн
-				.modal-body
-					.row
-						.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-8.col-md-7.col-sm-6.pull-right
-							.input-group
-								.input-group-addon ₴
-								input#account.form-control(type='number', name='account', student=student._id placeholder='Amount')
-								.input-group-addon .00
-				.modal-footer
-					button.btn.btn-default(type='button', data-dismiss='modal') Close
-					button.btn.btn-primary.add-accounts(type='button') Add
+  .col-xs-12
+    .card
+      .card-header
+        .row.align-items-center
+          .col-6
+            h1.card-title #{title}
+          .col-6.text-right
+            //- @TODO add print functionality
+            .btn.btn-primary Print
+            a.btn.btn-primary(href=`/students/${student._id}/edit`, role='button') Edit Student
+      .card-body
+        .row.mb-3
+          .col-md-3
+            //- .student-fake-image
+            img.img-thumbnail(src="https://i.pinimg.com/736x/42/34/dc/4234dcaa1dc42bc1a0b9d81618aec288--johnny-depp-cry-baby-young-johnny-depp.jpg", alt="")
+          .col-md-9
+            p
+              b Email:
+              br
+              | #{student.email}
+            p
+              b Phone:
+              br
+              | #{student.phone}
+            p
+              b Language:
+              br
+              | #{student.language}
+            p 
+              b Level:
+              br
+              | #{student.level}
+            p
+              b Day of birth:
+              br
+              | #{moment(student.dayOfBirth).format("DD/MM/YYYY")}
+            p
+              b Created at:
+              br
+              | #{moment(student.createAt).format("DD/MM/YYYY")}
+            div
+              h4.account
+                | Account: #{student.account}грн. 
+                button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
+                  //- @TODO add icon
+                  | pay pay pay
+        .row
+          .col-12
+            h3 #{title}'s payment history
+            table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+              thead
+                tr
+                  th Value
+                  th Type
+                  th Date
+              tbody
+              each paid, i in paids
+                tr
+                  td #{paid.value}
+                  td #{paid.type}
+                  td #{moment(paid.date).format("DD MMMM YYYY, HH:mm")}
+
+  //- @TODO fix modal
+  #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#myModalLabel.modal-title #{student.name} accounts | #{student.account}грн
+        .modal-body
+          .row
+            .col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-8.col-md-7.col-sm-6.pull-right
+              .input-group
+                .input-group-addon ₴
+                input#account.form-control(type='number', name='account', student=student._id placeholder='Amount')
+                .input-group-addon .00
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+          button.btn.btn-primary.add-accounts(type='button') Add

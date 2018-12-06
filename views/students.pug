@@ -3,18 +3,19 @@ extends layout
 block content
   .col-xs-12
     .card
-      .card-body
-        .row
+      .card-header
+        .row.align-items-center
           .col-6
             h1.card-title #{title}
           .col-6.text-right
             a.btn.btn-primary(href='/students/add', role='button') Add Student
+        
+      .card-body
         .table-responsive
           table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-            //- caption.text-center List of users you can edit everyone of them
+            //- caption List of #{title}, you can edit everyone of them
             thead
               tr
-                //- th #
                 th Name
                 th E-mail
                 th Phone
@@ -23,10 +24,10 @@ block content
             tbody
             each student, i in students
               tr.clickable-row(data-href='/students/' + student._id)
-                //- td #{i+1}
                 td #{student.name}
                 td #{student.email}
                 td #{student.phone}
                 td #{student.language}
                 td
                   div.notes #{student.notes}
+                  

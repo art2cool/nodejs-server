@@ -1,4 +1,12 @@
 .card{
   border: 0;
   box-shadow: $primary-shadow;
+
+  &-header{
+    justify-content: space-between;
+  }
+
+  &-title{
+    margin-bottom: 0;
+  }
 }
