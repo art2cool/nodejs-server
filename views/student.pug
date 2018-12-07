@@ -5,18 +5,29 @@ block content
     .card
       .card-header
         .row.align-items-center
-          .col-6
-            h1.card-title #{title}
+          .col-6.text-left
+            .d-flex.align-items-center
+              a.btn.btn-icon.icon-left-big(href=`/students`)
+              h1.card-title
+                | #{title}
           .col-6.text-right
-            //- @TODO add print functionality
-            .btn.btn-primary Print
-            a.btn.btn-primary(href=`/students/${student._id}/edit`, role='button') Edit Student
+            .btn-group
+              .btn.btn-outline-secondary.print-page.icon-print
+              a.btn.btn-primary(href=`/students/${student._id}/edit`, role='button')
+                i.icon-edit
+                | Edit Student
       .card-body
         .row.mb-3
           .col-md-3
             //- .student-fake-image
             img.img-thumbnail(src="https://i.pinimg.com/736x/42/34/dc/4234dcaa1dc42bc1a0b9d81618aec288--johnny-depp-cry-baby-young-johnny-depp.jpg", alt="")
           .col-md-9
+            div
+              h4.account
+                | Account: #{student.account}грн. 
+                button.btn.btn-secondary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
+                  i.icon-credit-card
+                  | put coin
             p
               b Email:
               br
@@ -41,12 +52,6 @@ block content
               b Created at:
               br
               | #{moment(student.createAt).format("DD/MM/YYYY")}
-            div
-              h4.account
-                | Account: #{student.account}грн. 
-                button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
-                  //- @TODO add icon
-                  | pay pay pay
         .row
           .col-12
             h3 #{title}'s payment history

@@ -1,0 +1,1 @@
+"use strict";$(".print-page").on("click",function(){return window.print()});
