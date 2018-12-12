@@ -18,6 +18,7 @@ block content
                   | Edit Student
             .d-block.d-lg-none
               a.btn.btn-primary(href=`/students/${student._id}/edit`, role='button')
+                // - @TODO add edit icon
                 i.icon-cog
       .card-body
         .row
@@ -33,7 +34,6 @@ block content
                   span.text-danger
                     = student.account
                     | грн. 
-                
                 button.student-account-button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
                   i.icon-credit-card.mr-1
               - var studentData = {'Email': student.email, 'Phone': student.phone, 'Language': student.language, 'Level': student.level, 'Day of birth': moment(student.dayOfBirth).format("DD/MM/YYYY"), 'Created at': moment(student.createAt).format("DD/MM/YYYY")}
