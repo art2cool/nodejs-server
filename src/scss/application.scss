@@ -1,0 +1,18 @@
+// @import './extends/bootstrap-reboot.min';
+@import './extends/bootstrap.min';
+@import './base/fonts';
+@import './base/variables';
+@import './base/layout';
+// @import './base/typography';
+
+@import './extends/old-styles';
+@import './components/navbar';
+@import './components/button';
+@import './components/card';
+@import './components/notification';
+@import './components/table';
+
+@import './base/header';
+@import './base/footer';
+
+@import './views/student';

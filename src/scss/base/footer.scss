@@ -1,0 +1,13 @@
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: {
+    top: 15px;
+    bottom: 15px;
+  }
+
+  color: $snow;
+  background-color: $primary-color;
+}

@@ -1,15 +1,18 @@
 extends layout
 
 block content
-	h1 Login
-	p Please login below
-	.row
-		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
-			form(method='post', action='/users/login')
-				.form-group
-					label Email
-					input.form-control(type='email', name='email', placeholder='Enter Email')
-				.form-group
-					label Password
-					input.form-control(type='password', name='password', placeholder='Enter password')
-				input.btn.btn-default(name='submit', type='submit', value='Login')
+  .col-md-6.offset-md-3
+    .card
+      .card-header
+        h1.card-title Login
+        .card-subtitle Please login below
+      .card-body
+        form(method='post', action='/users/login')
+          .form-group
+            label Email
+            input.form-control(type='email', name='email', placeholder='Enter Email')
+          .form-group
+            label Password
+            input.form-control(type='password', name='password', placeholder='Enter password')
+          .text-center
+            input.btn.btn-primary.btn-lg(name='submit', type='submit', value='Login')

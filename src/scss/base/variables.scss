@@ -1,0 +1,34 @@
+// Theme colors
+$primary-color: #38b5ad;
+// $secondary-color: #9b9b9b;
+
+$snow: #fff;
+$night: #000;
+
+$primary-text-color: #4a596a;
+
+$bg-color: #f2f2f2;
+
+$primary-shadow: 0 8px 16px 0 rgba(40,40,90,.09), 0 3px 6px 0 rgba(0,0,0,.065);
+
+$btn-primary: #243949;
+
+// Font
+$primary-font: 'Montserrat', sans-serif;
+
+// Mediaqueries
+$screen-lg: 1200px;
+$screen-lg-max: $screen-lg - 1;
+$screen-md: 992px;
+$screen-md-max: $screen-md - 1;
+$screen-sm: 768px;
+$screen-sm-max: $screen-sm - 1;
+$screen-xs: 561px;
+$screen-xs-max: $screen-xs - 1;
+
+// Transition
+$default-transition: .15s ease-in-out;
+
+// Etc
+$circle: 50%;
+$zIndexMax: 9999;
