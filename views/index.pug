@@ -4,9 +4,7 @@ block content
   .col-md-10.offset-md-1
     .card
       .card-header
-        h1.card-title Member area
-        .card-subtitle Welcome to the member area, #{user.name}!
-      .card-body
         h1 Calendar
+      .card-body
         //- p #{JSON.stringify(events, null, 2)}
         #calendar(data-events= events, data-resources= resources)
