@@ -21,6 +21,7 @@ block content
                 th Phone
                 th Language
                 th Notes
+                th Account
             tbody
             each student, i in students
               tr.clickable-row(data-href='/students/' + student._id)
@@ -30,4 +31,4 @@ block content
                 td #{student.language}
                 td
                   div.notes #{student.notes}
-                  
+                td.text-right #{student.account}₴
