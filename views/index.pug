@@ -7,8 +7,6 @@ block content
         h1.card-title Member area
         .card-subtitle Welcome to the member area, #{user.name}!
       .card-body
-
-        if users
-          ol
-            each user, i in users
-              li #{user.name}
+        h1 Calendar
+        //- p #{JSON.stringify(events, null, 2)}
+        #calendar(data-events= events, data-resources= resources)

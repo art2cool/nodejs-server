@@ -9,9 +9,29 @@ const studentSchema = new mongoose.Schema({
 	phone: { type: String, trim: true },
 	language: {
 		type: String,
-		enum: ['English', 'Polish', 'German', 'Japanese']
+		enum: [
+			"English",
+			"Polish",
+			"German",
+			"Japanese",
+			"Chinese",
+			"Spanish",
+			"Italian",
+			"Turkish",
+			"French",
+			"Chezh",
+			"Arabian"
+		]
 	},
-	level: { type: String, enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+	level: {
+		type: String, enum: [
+			"Beginner",
+			"Elementary",
+			"Pre-intermediate",
+			"Intermediate",
+			"Upper-intermediate",
+			"Advanced"
+		] },
 	notes: { type: String, trim: true },
 	dayOfBirth: {
 		type: Date
