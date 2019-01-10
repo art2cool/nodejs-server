@@ -84,8 +84,27 @@ function studentsGenerator(count) {
       "name": faker.name.findName(),
       "email": faker.internet.email(),
       "phone": faker.phone.phoneNumber(),
-      "language": faker.random.arrayElement(['English', 'Polish', 'German', 'Japanese']),
-      "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
+      "language": faker.random.arrayElement([
+        "English",
+        "Polish",
+        "German",
+        "Japanese",
+        "Chinese",
+        "Spanish",
+        "Italian",
+        "Turkish",
+        "French",
+        "Chezh",
+        "Arabian"
+      ]),
+      "level": faker.random.arrayElement([
+        "Beginner",
+        "Elementary",
+        "Pre-intermediate",
+        "Intermediate",
+        "Upper-intermediate",
+        "Advanced"
+      ]),
       "dayOfBirth": faker.date.past(),
       "notes": faker.lorem.sentence(),
       "account": faker.random.number({ min: -100, max: 500 }),
@@ -98,14 +117,31 @@ function studentsGenerator(count) {
 function classesGenerator(count, studentsIDs, teacherIDs) {
   const classes = [];
   while (count--) {
-    const clas = {
-      "language": faker.random.arrayElement(['English', 'Polish', 'German', 'Japanese']),
-      "level": faker.random.arrayElement(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
-      "notes": faker.lorem.sentence(),
-      "type": faker.random.arrayElement(['induvidual', 'semi-induvidual', 'group', 'group']),
-      "price": faker.random.number(50, 200),
-      "teacher": faker.random.arrayElement(teacherIDs)
-    }
+    const clas = { language: faker.random.arrayElement([
+        "English",
+        "Polish",
+        "German",
+        "Japanese",
+        "Chinese",
+        "Spanish",
+        "Italian",
+        "Turkish",
+        "French",
+        "Chezh",
+        "Arabian"
+    ]), level: faker.random.arrayElement([
+      "Beginner",
+      "Elementary",
+      "Pre-intermediate",
+      "Intermediate",
+      "Upper-intermediate",
+      "Advanced"
+    ]), notes: faker.lorem.sentence(), type: faker.random.arrayElement([
+        "induvidual",
+        "semi-induvidual",
+        "group",
+        "group"
+      ]), price: faker.random.number(50, 200), teacher: faker.random.arrayElement(teacherIDs) };
     if (clas.type == 'induvidual') {
       const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
       clas.students = [...studentsIDs.slice(index, index + 1)];

@@ -15,6 +15,7 @@ const routes = require('./routes/index');
 const students = require('./routes/students');
 const users = require('./routes/users');
 const classes = require('./routes/classes');
+const teachers = require('./routes/teachers');
 const collaborations = require('./routes/collaborations');
 
 const app = express();
@@ -88,6 +89,7 @@ app.use('/users', users);
 app.use('/students', students);
 app.use('/collaborations', collaborations);
 app.use('/classes', classes);
+app.use('/teachers', teachers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
