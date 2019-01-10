@@ -1,49 +1,61 @@
 extends layout
 
 block content
-	h1 Edit student
-	ul.errors
-		if errors
-			each error, i in errors
-				li.alert.alert-danger #{error.msg}
-	.row
-		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
-			form(method='post', action=`/students/${student._id}`, enctype='application/json')
-				.form-group
-					label Name
-					input.form-control(type='text', name='name', placeholder='Enter Student Name', value=`${student.name}`)
-				.form-group
-					label Email
-					input.form-control(type='email', name='email', placeholder='Enter contact Email', value=`${student.email}`)
-				.form-group
-					label Phone
-					input.form-control(type='text', name='phone', placeholder='Enter contact phone', value=`${student.phone}`)
-				.form-group
-					label Language
-					br
-					select.selectpicker(name='language')
-						option(selected= student.language ==='English') English
-						option(selected= student.language ==='German') German
-						option(selected= student.language ==='Polish') Polish
-				.form-group
-					label Language level
-					br
-					select.selectpicker(name='level')
-						option(selected= student.level ==='A1') A1
-						option(selected= student.level ==='B1') B1
-						option(selected= student.level ==='B2') B2
-						option(selected= student.level ==='C1') C1
-				.form-group
-					label Day of birth
-					input.form-control(type='date', name='dayOfBirth', value=`${student.dayOfBirth.toISOString().split('T')[0]}`)
-				.form-group
-					label Account (in UAH)
-					.input-group
-						.input-group-addon ₴
-						input#account.form-control(type='number', name='account', placeholder='Amount', value=`${student.account}`)
-						.input-group-addon .00
-				.form-group
-					label(for='exampleFormControlTextarea1') Short Notes
-					textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes') #{student.notes}
-				input.btn.btn-primary.pull-right(name='submit', type='submit', value='Save')
-				a.btn.btn-default.pull-right(href='/students', role='button') Cancel
+  .col-xs-12
+    .card
+      .card-header
+        .row.align-items-center
+          .col-12.text-left
+            .d-flex.align-items-center
+              a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/students`)
+              h1.card-title
+                | Edit #{student.name}'s profile
+      .card-body
+        .errors.notification-wrapper
+          if errors
+            each error, i in errors
+              .alert.alert-danger.alert-dismissible.fade.show(role='alert')
+                button.close(type='button', data-dismiss='alert', aria-label='Close')
+                  span(aria-hidden='true') &times;
+                span #{error.msg}
+        .row
+          .col-xs-12.col-md-6.offset-md-3
+            form(method='post', action=`/students/${student._id}`, enctype='application/json')
+              .form-group
+                label Name
+                input.form-control(type='text', name='name', placeholder='Enter Student Name', value=`${student.name}`)
+              .form-group
+                label Email
+                input.form-control(type='email', name='email', placeholder='Enter contact Email', value=`${student.email}`)
+              .form-group
+                label Phone
+                input.form-control(type='text', name='phone', placeholder='Enter contact phone', value=`${student.phone}`)
+              .form-group
+                label Language
+                br
+                select(name='language')
+                  option(selected= student.language ==='English') English
+                  option(selected= student.language ==='German') German
+                  option(selected= student.language ==='Polish') Polish
+              .form-group
+                label Language level
+                br
+                select.selectpicker(name='level')
+                  option(selected= student.level ==='A1') A1
+                  option(selected= student.level ==='B1') B1
+                  option(selected= student.level ==='B2') B2
+                  option(selected= student.level ==='C1') C1
+              .form-group
+                label Day of birth
+                input.form-control(type='date', name='dayOfBirth', value=`${student.dayOfBirth.toISOString().split('T')[0]}`)
+              .form-group
+                label Account (in UAH)
+                .input-group
+                  .input-group-addon ₴
+                  input#account.form-control(type='number', name='account', placeholder='Amount', value=`${student.account}`)
+                  .input-group-addon .00
+              .form-group
+                label(for='exampleFormControlTextarea1') Short Notes
+                textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes') #{student.notes}
+              input.btn.btn-primary.pull-right(name='submit', type='submit', value='Save')
+              a.btn.btn-default.pull-right(href='/students', role='button') Cancel
