@@ -6,17 +6,17 @@
       header: {
         left: "today prev,next",
         center: "title",
-        right: "timelineDay,timelineTenDay,timelineMonth"
+        right: "listWeek,agendaDay month,week,day"
       },
-      defaultView: "timelineTenDay",
+      defaultView: "agendaDay",
       views: {
-        timelineDay: {
-          buttonText: ":30 slots",
-          slotDuration: "00:30"
+        listWeek: {
+          buttonText: "List View",
+          type: "listWeek"
         },
-        timelineTenDay: {
-          type: "timeline",
-          duration: { days: 10 }
+        agendaDay: {
+          buttonText: "Schedule",
+          type: "listWeek"
         }
       },
       resourceLabelText: "Rooms",
