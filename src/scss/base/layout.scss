@@ -35,6 +35,13 @@ body{
 
   margin-top: -37px;
   padding-bottom: 30px;
+
+  background: {
+    image: url(http://linguist.lviv.ua/wp-content/uploads/2015/02/image-1500x630.png);
+    position: 50% bottom;
+    repeat: no-repeat;
+    attachment: fixed;
+  };
 }
 
 ol, ul {
