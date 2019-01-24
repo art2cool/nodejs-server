@@ -4,10 +4,21 @@
   align-items: center;
 
   padding: {
-    top: 15px;
+    top: 150px;
     bottom: 15px;
   }
 
   color: $snow;
-  background-color: $night;
+
+  background: {
+    color: $night;
+    image: url(http://linguist.lviv.ua/wp-content/uploads/2015/02/image-1500x630.png);
+    position: 50% top;
+    repeat: no-repeat;
+    size: contain;
+  };
+
+  .copyright{
+    background-color: rgba($night, .6);
+  }
 }
