@@ -3,3 +3,38 @@
   right: 15px; bottom: 15px;
   z-index: $zIndexMax;
 }
+
+ul.success li, ul.info li, ul.error li {
+  margin: 20px 0 20px 0;
+  padding: 15px;
+  border: 1px solid transperent;
+  border-radius: 5px;
+  list-style: none;
+}
+
+ul.success li{
+  color: #3c763d;
+  background:rgb(199, 216, 193)8;
+  border-color: #d6e9c6
+}
+ul.info li {
+  color: #31708f;
+  background: #d9edf7;
+  border-color: #bce8f1
+}
+ul.error li {
+  color: brown;
+  background: coral;
+  border-color: brown;
+}
+div.notes {
+  max-width: 300px;
+}
+
+#add-accounts {
+  cursor: pointer;
+}
+
+.clickable-row {
+  cursor: pointer;
+}

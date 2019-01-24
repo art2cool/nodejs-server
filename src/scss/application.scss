@@ -1,11 +1,9 @@
-// @import './extends/bootstrap-reboot.min';
 @import './extends/bootstrap.min';
+@import './extends/scheduler.min.css';
 @import './base/fonts';
 @import './base/variables';
 @import './base/layout';
-// @import './base/typography';
 
-@import './extends/old-styles';
 @import './components/navbar';
 @import './components/button';
 @import './components/card';
