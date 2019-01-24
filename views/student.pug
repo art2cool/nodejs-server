@@ -4,22 +4,14 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6.text-left
-            .d-flex.align-items-center
-              a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/students`)
-              h1.card-title
-                | #{title}
-          .col-6.text-right
-            .d-none.d-lg-block
-              .btn-group
-                .btn.btn-outline-secondary.print-page.icon-print
-                a.btn.btn-primary(href=`/students/${student._id}/edit`, role='button')
-                  | Edit Student
-            .d-block.d-lg-none
-              a.btn.btn-primary(href=`/students/${student._id}/edit`, role='button')
-                // - @TODO add edit icon
-                i.icon-cog
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href=`/students`)
+        a.btn.btn-info.btn-sm.mr-3(href=`/students/${student._id}/edit`, role='button')
+          | Edit Student
+        .btn.btn-info.btn-sm.print-page.icon-print
+
       .card-body
         .row
           .col-xs-12.col-lg-4
@@ -29,11 +21,11 @@ block content
                 if student.account >= 0
                   span.text-success
                     = student.account
-                    | грн. 
+                    | грн.
                 else
                   span.text-danger
                     = student.account
-                    | грн. 
+                    | грн.
                 button.student-account-button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
                   i.icon-credit-card.mr-1
               - var studentData = {'Email': student.email, 'Phone': student.phone, 'Language': student.language, 'Level': student.level, 'Day of birth': moment(student.dayOfBirth).format("DD/MM/YYYY"), 'Created at': moment(student.createAt).format("DD/MM/YYYY")}

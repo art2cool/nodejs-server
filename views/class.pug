@@ -4,16 +4,13 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-12.text-left
-            .d-flex.align-items-center
-        h1.card-title
-          | #{title}
+        h1.card-title #{title}
       
       .card-controls
-        a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/classes`)
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href=`/classes`)
         a.btn.btn-info.btn-sm.mr-3(href=`/classes/${clas._id}/edit`, role='button') Edit Class
         a.btn.btn-info.btn-sm(href=`${clas._id}/lessons/add`, role='button') Create lesson
+      
       .card-body
         p 
           b Teacher:

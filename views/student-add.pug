@@ -4,12 +4,11 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6.text-left
-            .d-flex.align-items-center
-              a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/students`)
-              h1.card-title
-                | #{title}
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big(href=`/students`)
+      
       .card-body
         .errors.notification-wrapper
           if errors
