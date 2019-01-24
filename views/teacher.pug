@@ -13,9 +13,8 @@ block content
             
       .card-body
         - var teacherData = {'Email': teacher.email, 'Phone': teacher.phone, 'Coeficient': teacher.coeficient}
-        ul.student-info__list
-          each k, v in teacherData
-            li
-              b
-                = v
-              = ': ' + k
+        each k, v in teacherData
+          p
+            b
+              = v
+            = ': ' + k

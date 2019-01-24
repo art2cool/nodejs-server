@@ -1,3 +1,11 @@
 caption{
   caption-side: unset;
 }
+
+.table{
+  td, th {
+    &:last-child{
+      text-align: right;
+    }
+  }
+}

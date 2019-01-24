@@ -29,12 +29,11 @@ block content
                 button.student-account-button.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-target='#myModal')
                   i.icon-credit-card.mr-1
               - var studentData = {'Email': student.email, 'Phone': student.phone, 'Language': student.language, 'Level': student.level, 'Day of birth': moment(student.dayOfBirth).format("DD/MM/YYYY"), 'Created at': moment(student.createAt).format("DD/MM/YYYY")}
-              ul.student-info__list
-                each key, value in studentData
-                  li
-                    b
-                      = value
-                    = ': ' + key
+              each key, value in studentData
+                p
+                  b
+                    = value
+                  = ': ' + key
           .col-xs-12.col-lg-8
             h4 Payment history
             table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")

@@ -1,36 +1,54 @@
 extends layout
 
 block content
-	h2 #{title}
-	a.btn.btn-info.pull-right(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit
-	input.btn.btn-danger.pull-right#remove(type='button', data-info=`collaborations/${collaboration._id}`, value='Delete')
-	p Day: #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
-	p timeframe: #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
-	p room: #{collaboration.room}
-	p status: #{collaboration.status}
-	if collaboration.status == 'planned' && collaboration.until <= new Date()
-		.container
-			.row
-				.col-xs-12
-					.table-responsive
-						table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-							caption.text-center List of studenst who was present om this lessons
-							thead
-								tr
-									th #
-									th Students
-									th Pressent
-							tbody
-							each student, i in collaboration.class.students
-								tr
-									td #{i+1}
-									td
-										a(href='/students/' + student._id) #{student.name}
-									td
-										input.present(type='checkbox', data-student=student._id, checked=student.present)
-			a.btn.btn-info.pull-right#save(role='button') Save changes
-	else
-		p Students: &nbsp;
-			each student in collaboration.class.students
-				a(href='/students/' + student._id) #{student.name}
-				|, &nbsp;
+  .col-xs-12
+    .card
+      .card-header
+        h1.card-title #{title}
+      
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href='/classes/' + collaboration.class._id)
+        a.btn.btn-info.btn-sm.mr-3(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit
+        input.btn.btn-danger.btn-sm#remove(type='button', data-info=`collaborations/${collaboration._id}`, value='Delete')
+
+      .card-body
+        p
+          b Day:
+          br
+          | #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
+        p
+          b Timeframe:
+          br
+          | #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
+        p
+         b Room:
+         br
+         | #{collaboration.room}
+        p
+          b Status:
+          br
+          | #{collaboration.status}
+        if collaboration.status == 'planned' && collaboration.until <= new Date()
+          .table-responsive
+            table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
+              caption.text-center List of studenst who was present om this lessons
+              thead
+                tr
+                  th #
+                  th Students
+                  th Pressent
+              tbody
+              each student, i in collaboration.class.students
+                tr
+                  td #{i+1}
+                  td
+                    a(href='/students/' + student._id) #{student.name}
+                  td
+                    input.present(type='checkbox', data-student=student._id, checked=student.present)
+            a.btn.btn-info.pull-right#save(role='button') Save changes
+        else
+          p Students:
+            br
+            each student in collaboration.class.students
+              a(href='/students/' + student._id) #{student.name}
+              |, &nbsp;
