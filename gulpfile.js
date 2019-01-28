@@ -8,6 +8,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const imagemin = require('gulp-imagemin');
 const imageminJpegtran = require('imagemin-jpegtran');
 const imageminPngquant = require('imagemin-pngquant');
+const concat = require('gulp-concat');
 
 gulp.task('fonts', () => gulp.src('src/fonts/**/*.*')
   .pipe(gulp.dest('public/fonts/'))
@@ -39,8 +40,10 @@ gulp.task('scripts', () => gulp.src('src/js/*.js')
     presets: ['es2015']
   }))
   .pipe(uglify())
+  .pipe(concat('app.js'))
   .pipe(gulp.dest('public/js'))
 );
+
 
 gulp.task('watch', ['sass', 'scripts', 'img', 'fonts'], () => {
   livereload.listen();
