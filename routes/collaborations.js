@@ -10,11 +10,10 @@ const Class = require('../models/classes');
 router.patch('/:id', isAuthorized, async (req, res, next) => {
   const id = req.params.id;
   const allStudents = JSON.parse(req.body.students);
-  console.log(JSON.parse(req.body.students));
+
   const presentStudents = allStudents
     .filter(el => el.present)
     .map(el => el.id);
-  console.log(presentStudents)
   
   try {
     const coll = await Collaboration.findById(id);
@@ -54,7 +53,7 @@ router.post('/:id', async (req,res) => {
   }
   res.redirect(`/classes/${clas}/lessons/${_id}`)
 })
-
+// rewrite it to the correct format connect to put
 router.post('/', async (req,res) => {
   let {date, since, until, room} = req.body;
   const clas = req.query.class;
@@ -68,6 +67,17 @@ router.post('/', async (req,res) => {
   })
 
   res.redirect(`/classes/${clas}`)
+})
+
+router.put('/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const { since, until, room } = req.body;
+  try {
+    const upd = await Collaboration.findByIdAndUpdate(id, { $set: { until, since, room }})
+    res.send('done')
+  } catch (e) {
+    next(e)
+  }
 })
 
 router.delete('/:id', async (req, res, next) => {
