@@ -6,7 +6,7 @@
       header: {
         left: "today prev,next",
         center: "title",
-        right: "listWeek,agendaDay month,week,day"
+        right: "listWeek,agendaDay,agendaDay2 month,week,day"
       },
       defaultView: "agendaDay",
       views: {
@@ -18,6 +18,13 @@
           nowIndicator: true,
           buttonText: "Schedule",
           type: "listWeek"
+        },
+        agendaDay2: {
+          nowIndicator: true,
+          duration: { days: 2 },
+          buttonText: "Schedule2",
+          type: "agenda",
+          groupByDateAndResource: true,
         }
       },
       resourceLabelText: "Rooms",
