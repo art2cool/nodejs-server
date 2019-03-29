@@ -3,6 +3,8 @@
 @import './extends/bootstrap-select.min';
 @import './extends/fullcalendar.min';
 
+@import './base/print.scss';
+
 @import './base/fonts';
 @import './base/typography';
 @import './base/variables';
@@ -10,6 +12,7 @@
 @import './base/header';
 @import './base/footer';
 
+@import './components/bootstrap-select-override.scss';
 @import './components/navbar';
 @import './components/button';
 @import './components/card';

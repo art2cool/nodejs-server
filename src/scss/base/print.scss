@@ -1,0 +1,12 @@
+@media print {
+  @page {
+    margin: 1cm;
+  }
+
+  header.header,
+  footer.footer,
+  .card-controls,
+  button {
+    display: none !important;
+  }
+}
