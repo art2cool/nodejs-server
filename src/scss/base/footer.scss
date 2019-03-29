@@ -4,19 +4,13 @@
   align-items: center;
 
   padding: {
-    top: 150px;
+    top: 15px;
     bottom: 15px;
   }
 
   color: $snow;
 
-  background: {
-    color: $night;
-    image: url(../img/footerImage.png);
-    position: 50% top;
-    repeat: no-repeat;
-    size: contain;
-  };
+  background-color: $night;
 
   .copyright{
     background-color: rgba($night, .6);

@@ -50,11 +50,13 @@ block content
               .form-group
                 label Account (in UAH)
                 .input-group
-                  .input-group-addon ₴
+                  .input-group-prepend
+                    span.input-group-text ₴
                   input#account.form-control(type='number', name='account', placeholder='Amount', value=`${student.account}`)
-                  .input-group-addon .00
+                  .input-group-append
+                    span.input-group-text .00
               .form-group
                 label(for='exampleFormControlTextarea1') Short Notes
                 textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes') #{student.notes}
-              input.btn.btn-primary.pull-right(name='submit', type='submit', value='Save')
-              a.btn.btn-default.pull-right(href='/students', role='button') Cancel
+              input.btn.btn-primary(name='submit', type='submit', value='Save')
+              a.btn.btn-default(href='/students', role='button') Cancel
