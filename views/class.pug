@@ -1,98 +1,114 @@
 extends layout
 
 block content
-	h2 #{title}
-	a.btn.btn-info.pull-right(href=`/classes/${clas._id}/edit`, role='button') Edit Class
-	p Teacher: &nbsp;
-		a(href='/teachers/' + clas.teacher._id) #{clas.teacher.name}
-	p language: #{clas.language}
-	p level: #{clas.level}
-	p type: #{clas.type}
-	p Students: &nbsp;
-		each student in clas.students
-			a(href='/students/' + student._id) #{student.name}
-			|, &nbsp;
-	p Notes: #{clas.notes}
+  .col-xs-12
+    .card
+      .card-header
+        h1.card-title #{title}
+      
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href=`/classes`)
+        a.btn.btn-info.btn-sm.mr-3(href=`/classes/${clas._id}/edit`, role='button') Edit Class
+        a.btn.btn-info.btn-sm(href=`${clas._id}/lessons/add`, role='button') Create lesson
+      
+      .card-body
+        p 
+          b Teacher:
+          br
+          a(href='/teachers/' + clas.teacher._id) #{clas.teacher.name}
+        p 
+          b Language:
+          br
+          | #{clas.language}
+        p
+          b Level:
+          br
+          | #{clas.level}
+        p
+          b Type:
+          br
+          | #{clas.type}
+        p 
+          b Students:
+          br
+          each student in clas.students
+            a(href='/students/' + student._id) #{student.name}
+            |, &nbsp;
+        p
+          b Notes:
+          br
+          | #{clas.notes}
 
-	- var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();})
-	h3 Planed lessons
-	if !planned.length
-		p There are no planned lessons for this class yet
-	a.btn.btn-info.pull-right(href=`${clas._id}/lessons/add`, role='button') Create lesson
-	br
-	br
-	if planned.length
-		.row
-			.col-xs-12
-				.table-responsive
-					table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-						thead
-							tr
-								th #
-								th presents
-								th since
-								th until
-								th status
-								th room
-								th Class
-						tbody
-						each collaboration, i in planned
-							tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
-								td #{i+1}
-								td #{clas.students.map(el => ` ${el.name}`)}
-								td #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
-								td #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
-								td #{collaboration.status}
-								td #{collaboration.room}
-								td #{collaboration.class}
+        - var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();})
+        h3 Planed lessons
+        if !planned.length
+          p There are no planned lessons for this class yet
+        if planned.length
+          .table-responsive
+            table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+              thead
+                tr
+                  th #
+                  th presents
+                  th since
+                  th until
+                  th status
+                  th room
+                  th Class
+              tbody
+              each collaboration, i in planned
+                tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
+                  td #{i+1}
+                  td #{clas.students.map(el => ` ${el.name}`)}
+                  td #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
+                  td #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
+                  td #{collaboration.status}
+                  td #{collaboration.room}
+                  td #{collaboration.class}
 
-	- var review = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until <= new Date();})
-	if review.length
-		h3 Unresolved lessons
-		.row
-				.col-xs-12
-					.table-responsive
-						table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-							caption.text-center List of usersyou can edit everyone of them
-							thead
-								tr
-									th #
-									th presents
-									th Day
-									th time
-									th status
-									th room
-									th Class
-							tbody
-							each collaboration, i in review
-								tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
-									td #{i+1}
-									td #{clas.students.map(el => ` ${el.name}`)}
-									td #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
-									td #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
-									td review
-									td #{collaboration.room}
-									td #{collaboration.class}
-	- var finished = clas.collaborations.filter(el => el.status === 'finished')
-	if finished.length
-		h3 Completed lessons
-		.row
-			.col-xs-12
-				.table-responsive
-					table.table.table-bordered.table-striped(	summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-						caption.text-center List of completed lessons
-						thead
-							tr
-								th
-								each collaboration, i in finished
-									th #{collaboration.since.getDate()+'/'+collaboration.since.getMonth()+'/'+collaboration.since.getFullYear()}
-							tbody
-							each student, i in clas.students
-								tr
-									td #{student.name}
-									each collaboration, i in finished
-										td
-											if collaboration.students.map(el => el.toString()).includes(student._id.toString())
-												span.glyphicon.glyphicon-ok.text-success
-											else
-												span.glyphicon.glyphicon-remove.text-danger
+        - var review = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until <= new Date();})
+        if review.length
+          h3 Unresolved lessons
+          .table-responsive
+            table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+              //- caption.text-center List of usersyou can edit everyone of them
+              thead
+                tr
+                  th #
+                  th presents
+                  th Day
+                  th time
+                  th status
+                  th room
+                  th Class
+              tbody
+              each collaboration, i in review
+                tr.clickable-row(data-href=`${clas._id}/lessons/${collaboration._id}`)
+                  td #{i+1}
+                  td #{clas.students.map(el => ` ${el.name}`)}
+                  td #{moment(collaboration.since).format("MMM D, YYYY, (dddd)")}
+                  td #{moment(collaboration.since).format("HH:mm")} - #{moment(collaboration.until).format("HH:mm")}
+                  td review
+                  td #{collaboration.room}
+                  td #{collaboration.class}
+        - var finished = clas.collaborations.filter(el => el.status === 'finished')
+        if finished.length
+          h3 Completed lessons
+          .table-responsive
+            table.table.table-bordered.table-striped(	summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+              //- caption.text-center List of completed lessons
+              thead
+                tr
+                  th
+                  each collaboration, i in finished
+                    th #{collaboration.since.getDate()+'/'+collaboration.since.getMonth()+'/'+collaboration.since.getFullYear()}
+                tbody
+                each student, i in clas.students
+                  tr
+                    td #{student.name}
+                    each collaboration, i in finished
+                      td
+                        if collaboration.students.map(el => el.toString()).includes(student._id.toString())
+                          span.glyphicon.glyphicon-ok.text-success
+                        else
+                          span.glyphicon.glyphicon-remove.text-danger

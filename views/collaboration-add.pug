@@ -1,29 +1,36 @@
 extends layout
 
 block content
-	h1 Create Lessons
-	ul.errors
-		if errors
-			each error, i in errors
-				li.alert.alert-danger #{error.msg}
-	.row
-		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
-			form(method='post', action=`/collaborations?class=${clas}`, enctype='application/json')
-				.form-group
-					label day
-					br
-					input(name='date', type='date', value=`${new Date().toISOString().split('T')[0]}`)
-				.form-group
-					label since
-					br
-					input(name='since', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
-				.form-group
-					label until
-					br
-					input(name='until', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
-				.form-group
-					label Room
-					br
-					input(name='room', type='text')
-				input.btn.btn-primary.pull-right(name='submit', type='submit', value='Create lessons')
-				a.btn.btn-default.pull-right(href=`/classes/${clas}`, role='button') Cancel
+  .col-xs-12
+    .card
+      .card-header
+        h1.card-title #{title}
+      
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href='/classes/' + clas)
+      
+      .card-body
+        form(method='post', action=`/collaborations?class=${clas}`, enctype='application/json')
+          .form-group
+            label day
+            br
+            input(name='date', type='date', value=`${new Date().toISOString().split('T')[0]}`)
+          .form-group
+            label since
+            br
+            input(name='since', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
+          .form-group
+            label until
+            br
+            input(name='until', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
+          .form-group
+            label Room
+            br
+            input(name='room', type='text')
+          input.btn.btn-info(name='submit', type='submit', value='Create lessons')
+          a.btn.btn-default(href=`/classes/${clas}`, role='button') Cancel
+  
+  ul.errors
+    if errors
+      each error, i in errors
+        li.alert.alert-danger #{error.msg}

@@ -4,11 +4,10 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6
-            h1.card-title #{title}
-          .col-6.text-right
-            a.btn.btn-primary.pull-right(href='/teachers/add', role='button') Add Teacher
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm(href='/teachers/add', role='button') Add Teacher
 
       .card-body
         .table-responsive

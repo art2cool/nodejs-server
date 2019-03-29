@@ -1,10 +1,11 @@
 extends layout
 
 block content
-  .col-md-10.offset-md-1
+  .col-12
     .card
       .card-header
-        h1 Calendar
+        h1.card-title Calendar
+        .card-subtitle
+          | Better than a thousand days of diligent study is one day with a great teacher
       .card-body
-        //- p #{JSON.stringify(events, null, 2)}
         #calendar(data-events= events, data-resources= resources)

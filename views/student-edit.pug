@@ -4,12 +4,11 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-12.text-left
-            .d-flex.align-items-center
-              a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/students`)
-              h1.card-title
-                | Edit #{student.name}'s profile
+        h1.card-title Edit #{student.name}'s profile
+      
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href='/students/' + student._id)
+      
       .card-body
         .errors.notification-wrapper
           if errors
@@ -33,7 +32,7 @@ block content
               .form-group
                 label Language
                 br
-                select(name='language')
+                select.selectpicker(name='language')
                   option(selected= student.language ==='English') English
                   option(selected= student.language ==='German') German
                   option(selected= student.language ==='Polish') Polish

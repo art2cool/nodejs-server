@@ -4,15 +4,14 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6
-            h1.card-title #{title}
-          .col-6.text-right
-            a.btn.btn-primary.pull-right(href='/classes/add', role='button') Create Class
+        h1.card-title #{title}
+      
+      .card-controls
+        a.btn.btn-info.btn-sm(href='/classes/add', role='button') Create Class
+      
       .card-body
         .table-responsive
           table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-            //- caption.text-center List of classes can edit everyone of them
             thead
               tr
                 th Teacher
@@ -31,4 +30,3 @@ block content
                 td #{clas.type}
                 td
                   div.notes #{clas.notes}
-                  

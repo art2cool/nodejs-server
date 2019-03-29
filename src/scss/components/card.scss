@@ -2,11 +2,16 @@
   border: 0;
   box-shadow: $primary-shadow;
 
-  &-header{
-    justify-content: space-between;
+  &-header,
+  &-controls{
+    padding: .75rem 1.25rem;
   }
 
   &-title{
     margin-bottom: 0;
+  }
+
+  &-controls{
+    background-color: rgba($night, .1);
   }
 }
