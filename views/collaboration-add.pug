@@ -12,21 +12,17 @@ block content
       .card-body
         form(method='post', action=`/collaborations?class=${clas}`, enctype='application/json')
           .form-group
-            label day
-            br
-            input(name='date', type='date', value=`${new Date().toISOString().split('T')[0]}`)
+            label Day
+            input.form-control(name='date', type='date', value=`${new Date().toISOString().split('T')[0]}`)
           .form-group
-            label since
-            br
-            input(name='since', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
+            label Since
+            input.form-control(name='since', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
           .form-group
-            label until
-            br
-            input(name='until', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
+            label Until
+            input.form-control(name='until', type='time', value=`${new Date().toTimeString().substr(0, 5)}`)
           .form-group
             label Room
-            br
-            input(name='room', type='text')
+            input.form-control(name='room', type='text')
           input.btn.btn-info(name='submit', type='submit', value='Create lessons')
           a.btn.btn-default(href=`/classes/${clas}`, role='button') Cancel
   

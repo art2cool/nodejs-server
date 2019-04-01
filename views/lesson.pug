@@ -31,21 +31,18 @@ block content
         if collaboration.status == 'planned' && collaboration.until <= new Date()
           .table-responsive
             table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-              caption.text-center List of studenst who was present om this lessons
               thead
                 tr
-                  th #
                   th Students
                   th Pressent
               tbody
               each student, i in collaboration.class.students
                 tr
-                  td #{i+1}
                   td
                     a(href='/students/' + student._id) #{student.name}
                   td
                     input.present(type='checkbox', data-student=student._id, checked=student.present)
-            a.btn.btn-info.pull-right#save(role='button') Save changes
+            input.btn.btn-info#save(name='submit', type='submit', value='Save changes')
         else
           p Students:
             br
