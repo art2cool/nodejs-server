@@ -31,14 +31,23 @@ block content
               option(selected= clas.language ==='English') English
               option(selected= clas.language ==='German') German
               option(selected= clas.language ==='Polish') Polish
+              option(selected= clas.language ==='Japanese') Japanese
+              option(selected= clas.language ==='Chinese') Chinese
+              option(selected= clas.language ==='Spanish') Spanish
+              option(selected= clas.language ==='Italian') Italian
+              option(selected= clas.language ==='Turkish') Turkish
+              option(selected= clas.language ==='Chezh') Chezh
+              option(selected= clas.language ==='Arabian') Arabian
           .form-group
             label Language level
             br
             select.selectpicker(name='level')
-              option(selected= clas.level ==='A1') A1
-              option(selected= clas.level ==='B1') B1
-              option(selected= clas.level ==='B2') B2
-              option(selected= clas.level ==='C1') C1
+              option(selected= clas.level ==='Beginner') Beginner
+              option(selected= clas.level ==='Elementary') Elementary
+              option(selected= clas.level ==='Pre-intermediate') Pre-intermediate
+              option(selected= clas.level ==='Intermediate') Intermediate
+              option(selected= clas.level ==='Upper-intermediate') Upper-intermediate
+              option(selected= clas.level ==='Advanced') Advanced
           .form-group
           -	var std = clas.students.map( el => el._id.toString());
             label Select students

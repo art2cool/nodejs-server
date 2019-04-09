@@ -1,6 +1,6 @@
-$(function(){
-  'use strict';
+// $(function(){
+//   'use strict';
 
-  $('.print-page').on('click', () => window.print());
+//   $('.print-page').on('click', () => window.print());
 
-});
+// });

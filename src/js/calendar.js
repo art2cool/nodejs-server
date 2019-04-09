@@ -68,8 +68,8 @@ $(function() {
     },
     eventClick: function(event, element) {
       event.title = "CLICKED!";
-
-      $("#calendar").fullCalendar("updateEvent", event);
+      console.log(event)
+   //   $("#calendar").fullCalendar("updateEvent", event);
     },
   });
 
