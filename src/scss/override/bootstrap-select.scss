@@ -1,3 +1,7 @@
 .bootstrap-select {
   width: 100% !important;
+
+  .dropdown-menu {
+    min-width: 100% !important;
+  }
 }
