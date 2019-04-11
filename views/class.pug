@@ -12,32 +12,39 @@ block content
         a.btn.btn-info.btn-sm(href=`${clas._id}/lessons/add`, role='button') Create lesson
       
       .card-body
-        p 
-          b Teacher:
-          br
-          a(href='/teachers/' + clas.teacher._id) #{clas.teacher.name}
-        p 
-          b Language:
-          br
-          | #{clas.language}
-        p
-          b Level:
-          br
-          | #{clas.level}
-        p
-          b Type:
-          br
-          | #{clas.type}
-        p 
-          b Students:
-          br
-          each student in clas.students
-            a(href='/students/' + student._id) #{student.name}
-            |, &nbsp;
-        p
-          b Notes:
-          br
-          | #{clas.notes}
+        .row
+          .col-md-4
+            p 
+              b Teacher:
+              br
+              a(href='/teachers/' + clas.teacher._id) #{clas.teacher.name}
+          .col-md-4
+            p 
+              b Language:
+              br
+              | #{clas.language}
+          .col-md-4
+            p
+              b Level:
+              br
+              | #{clas.level}
+          .col-md-4
+            p
+              b Type:
+              br
+              | #{clas.type}
+          .col-md-4
+            p 
+              b Students:
+              br
+              each student in clas.students
+                a(href='/students/' + student._id) #{student.name}
+                |, &nbsp;
+          .col-md-4
+            p
+              b Notes:
+              br
+              | #{clas.notes}
 
         - var planned = clas.collaborations.filter(el => {if (el.status !== 'planned') return false;	return el.until >= new Date();})
         h3 Planed lessons
