@@ -96,7 +96,6 @@ block content
           h3 Completed lessons
           .table-responsive
             table.table.table-bordered.table-striped(	summary="This table shows how to create responsive tables using Bootstrap's default functionality")
-              //- caption.text-center List of completed lessons
               thead
                 tr
                   th
@@ -109,6 +108,6 @@ block content
                     each collaboration, i in finished
                       td
                         if collaboration.students.map(el => el.toString()).includes(student._id.toString())
-                          span.glyphicon.glyphicon-ok.text-success
+                          span.icon-ok.text-success
                         else
-                          span.glyphicon.glyphicon-remove.text-danger
+                          span.icon-cancel.text-danger

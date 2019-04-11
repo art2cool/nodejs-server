@@ -29,20 +29,22 @@ block content
           br
           | #{collaboration.status}
         if collaboration.status == 'planned' && collaboration.until <= new Date()
-          .table-responsive
-            table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-              thead
-                tr
-                  th Students
-                  th Pressent
-              tbody
-              each student, i in collaboration.class.students
-                tr
-                  td
-                    a(href='/students/' + student._id) #{student.name}
-                  td
-                    input.present(type='checkbox', data-student=student._id, checked=student.present)
-            input.btn.btn-info#save(name='submit', type='submit', value='Save changes')
+          .row
+            .col-lg-6.col-xs-12
+              .table-responsive
+                table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
+                  thead
+                    tr
+                      th Students
+                      th Present
+                  tbody
+                  each student, i in collaboration.class.students
+                    tr
+                      td
+                        a(href='/students/' + student._id) #{student.name}
+                      td
+                        input.present(type='checkbox', data-student=student._id, checked=student.present)
+                input.btn.btn-info#save(name='submit', type='submit', value='Save changes')
         else
           p Students:
             br
