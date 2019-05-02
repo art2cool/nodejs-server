@@ -21,9 +21,10 @@ html
               if user
                 li(class=(title === 'Calendar' ? 'active' : ''))
                   a.nav-link(href='/') Calendar
-                li(class=(title === 'Students' ? 'active' : ''))
-                  a.nav-link(href='/students') Students
-                if user.role === 'admin' || user.role === 'manager	'
+                if user.role === 'admin' || user.role === 'manager'
+                  li(class=(title === 'Students' ? 'active' : ''))
+                    a.nav-link(href='/students') Students
+                if user.role === 'admin' || user.role === 'manager'
                   li(class=(title === 'Teachers' ? 'active' : ''))
                     a.nav-link(href='/teachers') Teachers
                 li(class=(title === 'Classes' ? 'active' : ''))

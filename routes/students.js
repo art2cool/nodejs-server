@@ -11,7 +11,7 @@ router.get('/add', isAuthorized, (req, res, next) => {
 	});
 });
 
-router.get('/', isAuthorized, function(req, res, next) {
+router.get('/', isAdmin, (req, res, next) => {
 	Student
 		.find({})
 		.sort({name: 1})

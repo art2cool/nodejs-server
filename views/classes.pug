@@ -5,9 +5,10 @@ block content
     .card
       .card-header
         h1.card-title #{title}
-      
-      .card-controls
-        a.btn.btn-info.btn-sm(href='/classes/add', role='button') Create Class
+
+      if user.role === 'admin'
+        .card-controls
+          a.btn.btn-info.btn-sm(href='/classes/add', role='button') Create Class
       
       .card-body
         .table-responsive
@@ -19,6 +20,8 @@ block content
                 th Language
                 th Level
                 th Type
+                if user.role === 'admin'
+                  th Coefficient
                 th Notes
             tbody
             each clas, i in classes
@@ -28,5 +31,7 @@ block content
                 td #{clas.language}
                 td #{clas.level}
                 td #{clas.type}
+                if user.role === 'admin'
+                  td #{clas.coefficient}
                 td
                   div.notes #{clas.notes}
