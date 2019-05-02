@@ -19,7 +19,6 @@ const teachers = [{
   "email": "dmutrivna@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -27,7 +26,6 @@ const teachers = [{
   "email": "123Vasivna@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -35,7 +33,6 @@ const teachers = [{
   "email": "Vaasap!@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 },
 {
@@ -43,7 +40,6 @@ const teachers = [{
   "email": "opsrsfc@teacher.com",
   "role": 'teacher',
   "phone": faker.phone.phoneNumber(),
-  "coeficient": faker.random.number({ min: 10, max: 100 }),
   "password": "$2a$10$PO1fcL/waUw/mLd/TOcES.Df7wrWBgSLN6jGB0kFfIzfkesAptx0a"
 }]
 
@@ -117,7 +113,9 @@ function studentsGenerator(count) {
 function classesGenerator(count, studentsIDs, teacherIDs) {
   const classes = [];
   while (count--) {
-    const clas = { language: faker.random.arrayElement([
+    const clas = {
+      coefficient: faker.random.number({ min: 10, max: 100 }),
+      language: faker.random.arrayElement([
         "English",
         "Polish",
         "German",
@@ -129,19 +127,25 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
         "French",
         "Chezh",
         "Arabian"
-    ]), level: faker.random.arrayElement([
-      "Beginner",
-      "Elementary",
-      "Pre-intermediate",
-      "Intermediate",
-      "Upper-intermediate",
-      "Advanced"
-    ]), notes: faker.lorem.sentence(), type: faker.random.arrayElement([
+      ]),
+      level: faker.random.arrayElement([
+        "Beginner",
+        "Elementary",
+        "Pre-intermediate",
+        "Intermediate",
+        "Upper-intermediate",
+        "Advanced"
+      ]),
+      notes: faker.lorem.sentence(),
+      type: faker.random.arrayElement([
         "induvidual",
         "semi-induvidual",
         "group",
         "group"
-      ]), price: faker.random.number(50, 200), teacher: faker.random.arrayElement(teacherIDs) };
+      ]),
+      price: faker.random.number(50, 200),
+      teacher: faker.random.arrayElement(teacherIDs)
+    };
     if (clas.type == 'induvidual') {
       const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
       clas.students = [...studentsIDs.slice(index, index + 1)];

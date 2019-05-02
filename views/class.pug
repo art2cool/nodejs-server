@@ -8,7 +8,8 @@ block content
       
       .card-controls
         a.btn.btn-info.btn-sm.icon-left-big.mr-3(href=`/classes`)
-        a.btn.btn-info.btn-sm.mr-3(href=`/classes/${clas._id}/edit`, role='button') Edit Class
+        if user.role === 'admin'       
+          a.btn.btn-info.btn-sm.mr-3(href=`/classes/${clas._id}/edit`, role='button') Edit Class
         a.btn.btn-info.btn-sm(href=`${clas._id}/lessons/add`, role='button') Create lesson
       
       .card-body
@@ -28,6 +29,17 @@ block content
               b Level:
               br
               | #{clas.level}
+          if user.role === 'admin' 
+            .col-md-4
+              p
+                b Price:
+                br
+                | #{clas.price}
+            .col-md-4
+              p
+                b Coefficient:
+                br
+                | #{clas.coefficient}
           .col-md-4
             p
               b Type:

@@ -62,6 +62,11 @@ block content
               input#account.form-control(type='number', name='price', placeholder='Amount', value=`${clas.price}`)
               .input-group-addon .00
           .form-group
+            label Coefficient
+            .input-group
+              input#account.form-control(type='number', name='coefficient', placeholder='Amount', value=`${clas.coefficient}`)
+              .input-group-addon %
+          .form-group
             label(for='exampleFormControlTextarea1') Short Notes
             textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes') #{clas.notes}
           input.btn.btn-info(name='submit', type='submit', value='Save')

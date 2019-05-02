@@ -1,37 +1,20 @@
 const mongoose = require('mongoose');
 
 const db = require('./../config/db');
+const {languages, levels} = require('./../config/constants');
 
 const classSchema = new mongoose.Schema({
   students: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
   teacher: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   language: {
     type: String,
-    enum: [
-      "English",
-      "Polish",
-      "German",
-      "Japanese",
-      "Chinese",
-      "Spanish",
-      "Italian",
-      "Turkish",
-      "French",
-      "Chezh",
-      "Arabian"
-    ]
+    enum: languages
   },
   level: {
     type: String,
-    enum: [
-      "Beginner",
-      "Elementary",
-      "Pre-intermediate",
-      "Intermediate",
-      "Upper-intermediate",
-      "Advanced"
-    ]
+    enum: levels
   },
+  coefficient: { type: Number },
   notes: { type: String, trim: true },
   price: { type: Number, required: true },
   type: { type: String, enum: ["induvidual", "semi-induvidual", "group"] },

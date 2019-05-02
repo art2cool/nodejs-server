@@ -18,11 +18,9 @@ block content
                 th Name
                 th E-mail
                 th Phone
-                th Coeficient
             tbody
             each teacher, i in teachers
               tr.clickable-row(data-href='/teachers/' + teacher._id)
                 td #{teacher.name}
                 td #{teacher.email}
                 td #{teacher.phone}
-                td #{teacher.coeficient}

@@ -12,12 +12,11 @@ router.get("/add", isAuthorized, (req, res, next) => {
 });
 
 router.post("/", isAdmin, hashingPassword, (req, res, next) => {
-  const { email, name, phone, coeficient, password } = req.body;
+  const { email, name, phone, password } = req.body;
   const teacher = new User({
     email,
     name,
     phone,
-    coeficient,
     role: "teacher",
     password
   });
@@ -82,7 +81,6 @@ router.post("/:id", isAdmin, hashingPassword, async (req, res, next) => {
     email: req.body.email,
     name: req.body.name,
     phone: req.body.phone,
-    coeficient: req.body.coeficient
   };
 
   if (req.body.password) {
