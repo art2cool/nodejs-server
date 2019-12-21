@@ -10,7 +10,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     lowercase: true,
     trim: true,
-    unique: true
   },
   phone: { type: String, trim: true },
   language: {

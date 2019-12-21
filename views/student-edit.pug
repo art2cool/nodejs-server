@@ -55,7 +55,7 @@ block content
                   option(selected= student.level ==='Advanced') Advanced
               .form-group
                 label Day of birth
-                input.form-control(type='date', name='dayOfBirth', value=`${student.dayOfBirth.toISOString().split('T')[0]}`)
+                input.form-control(type='date', name='dayOfBirth', value=`${student.dayOfBirth && student.dayOfBirth.toISOString().split('T')[0]}`)
               .form-group
                 label Account (in UAH)
                 .input-group
