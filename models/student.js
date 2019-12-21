@@ -8,7 +8,6 @@ const studentSchema = new mongoose.Schema({
   name: { type: String, trim: true },
   email: {
     type: String,
-    require: true,
     lowercase: true,
     trim: true,
     unique: true
