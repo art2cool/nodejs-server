@@ -138,20 +138,26 @@ function classesGenerator(count, studentsIDs, teacherIDs) {
       ]),
       notes: faker.lorem.sentence(),
       type: faker.random.arrayElement([
-        "induvidual",
-        "semi-induvidual",
+        "individual",
+        "semi-individual",
         "group",
         "group"
       ]),
       price: faker.random.number(50, 200),
       teacher: faker.random.arrayElement(teacherIDs)
     };
-    if (clas.type == 'induvidual') {
-      const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
+    if (clas.type == "individual") {
+      const index = faker.random.number({
+        min: 0,
+        max: studentsIDs.length - 1
+      });
       clas.students = [...studentsIDs.slice(index, index + 1)];
     }
-    if (clas.type == 'semi-induvidual') {
-      const index = faker.random.number({ min: 0, max: studentsIDs.length - 1 });
+    if (clas.type == "semi-individual") {
+      const index = faker.random.number({
+        min: 0,
+        max: studentsIDs.length - 1
+      });
       clas.students = [...studentsIDs.slice(index, index + 2)];
     }
     if (clas.type == 'group') {

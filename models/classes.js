@@ -17,7 +17,7 @@ const classSchema = new mongoose.Schema({
   coefficient: { type: Number },
   notes: { type: String, trim: true },
   price: { type: Number, required: true },
-  type: { type: String, enum: ["induvidual", "semi-induvidual", "group"] },
+  type: { type: String, enum: ["individual", "semi-individual", "group"] },
   createAt: { type: Date, default: Date.now }
 });
 
