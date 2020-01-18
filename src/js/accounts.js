@@ -1,4 +1,6 @@
 (function () {
+  const host = window.location.host;
+  console.log(host)
   $(document).ready(function () {
     //rewrite tihs pls!
     const id = $('#account').attr('student');
@@ -6,7 +8,7 @@
       $('#account').val((index, value) => {
         $.ajax({
           method: 'POST',
-          url: `http://localhost:8000/students/${id}/payment`,
+          url: `http://${host}/students/${id}/payment`,
           data: { value }
         })
           .done(function (student) {
@@ -29,7 +31,7 @@
     })
     $.ajax({
       method: 'PATCH',
-      url: `http://localhost:8000/collaborations/${collaboration}`,
+      url: `http://${host}/collaborations/${collaboration}`,
       data: { students: JSON.stringify(body) }
     })
       .done(function (student) {
@@ -44,11 +46,11 @@
 
     $.ajax({
       method: 'DELETE',
-      url: `http://localhost:8000/${link}`,
+      url: `http://${host}/${link}`,
     })
       .done(function (respose) {
         const clas = respose.coll.class;
-        window.location.href = `http://localhost:8000/classes/${clas}`;
+        window.location.href = `http://${host}/classes/${clas}`;
       });
   })
 

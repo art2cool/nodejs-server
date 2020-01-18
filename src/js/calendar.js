@@ -1,6 +1,7 @@
 $(function() {
   const events = $('#calendar').data('events')
   const resources = $("#calendar").data("resources");
+  const host = window.location.host;
 
   $("#calendar").fullCalendar({
     header: {
@@ -39,7 +40,7 @@ $(function() {
       $.ajax({
         method: 'PUT',
         contentType: 'application/json',
-        url: `http://localhost:8000/collaborations/${id}`,
+        url: `http://${host}/collaborations/${id}`,
         data: JSON.stringify({ since: s, until: e, room })
       }).done(function () {
         $(this).addClass("done");
@@ -57,7 +58,7 @@ $(function() {
       $.ajax({
         method: 'PUT',
         contentType: 'application/json',
-        url: `http://localhost:8000/collaborations/${id}`,
+        url: `http://${host}/collaborations/${id}`,
         data: JSON.stringify({ since: s, until: e, room })
       }).done(function () {
         $(this).addClass("done");
