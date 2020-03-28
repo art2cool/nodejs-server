@@ -40,7 +40,7 @@ router.patch('/:id', isAuthorized, async (req, res, next) => {
   }
 })
 
-router.post('/:id', async (req,res) => {
+router.post('/:id',isAuthorized, async (req,res) => {
   let {date, since, until, room} = req.body;
   const _id = req.params.id;
   const clas = req.query.clas;
@@ -54,7 +54,7 @@ router.post('/:id', async (req,res) => {
   res.redirect(`/classes/${clas}/lessons/${_id}`)
 })
 // rewrite it to the correct format connect to put
-router.post('/', async (req,res) => {
+router.post('/', isAuthorized, async (req,res) => {
   let {date, since, until, room} = req.body;
   const clas = req.query.class;
   since = new Date(`${date}T${since}:00`);
@@ -69,7 +69,7 @@ router.post('/', async (req,res) => {
   res.redirect(`/classes/${clas}`)
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAuthorized, async (req, res, next) => {
   const { id } = req.params;
   const { since, until, room } = req.body;
   try {
@@ -80,11 +80,11 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAuthorized, async (req, res, next) => {
   const id = req.params.id;
   try {
     const coll = await Collaboration.findByIdAndRemove(id)
-    res.send({coll});
+    res.send({redirect: `classes/${coll.class}`});
   } catch (e) {
     next(e);
   }

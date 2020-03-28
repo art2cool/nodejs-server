@@ -10,7 +10,8 @@ block content
         a.btn.btn-info.btn-sm.icon-left-big.mr-3(href=`/students`)
         a.btn.btn-info.btn-sm.mr-3(href=`/students/${student._id}/edit`, role='button')
           | Edit Student
-        .btn.btn-info.btn-sm.print-page.icon-print
+        .btn.btn-danger.btn-sm.mr-3#remove(role='button', data-type='student', data-link=`students/${student._id}`)
+          | Delete
 
       .card-body
         .row
@@ -36,7 +37,7 @@ block content
                   = ': ' + key
           .col-xs-12.col-lg-8
             h4 Payment history
-            table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
+            table.table.table-bordered.table-striped.table-hover
               thead
                 tr
                   th Value in ₴

@@ -9,7 +9,7 @@ block content
       .card-controls
         a.btn.btn-info.btn-sm.icon-left-big.mr-3(href='/classes/' + collaboration.class._id)
         a.btn.btn-info.btn-sm.mr-3(href=`/classes/${collaboration.class._id}/lessons/${collaboration._id}/edit`, role='button') Edit
-        input.btn.btn-danger.btn-sm#remove(type='button', data-info=`collaborations/${collaboration._id}`, value='Delete')
+        input.btn.btn-danger.btn-sm#remove(type='button', data-type='lesson', data-link=`collaborations/${collaboration._id}`, value='Delete')
 
       .card-body
         p

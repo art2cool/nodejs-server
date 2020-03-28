@@ -40,17 +40,19 @@
   })
 
   $('#remove').click(function () {
-    const conf = confirm('Do you realy what to remove this lesson?');
+    const type = $(this).data("type");
+    const link = $(this).data('link');
+    const conf = confirm(`Do you realy what to remove this ${type}?`);
     if (!conf) return;
-    const link = $(this).data('info');
 
     $.ajax({
       method: 'DELETE',
       url: `${host}/${link}`,
     })
       .done(function (respose) {
-        const clas = respose.coll.class;
-        window.location.href = `${host}/classes/${clas}`;
+        console.log('done')
+        const link = respose.redirect;
+        window.location.href = `${host}/${link}`;
       });
   })
 
