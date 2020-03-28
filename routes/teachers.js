@@ -45,17 +45,7 @@ router.get("/:id", isManager, async function(req, res, next) {
   const id = req.params.id;
   try {
     const teacher = await User.findById(id);
-    const classes = await Class.aggregate([
-      { $match: { teacher: id } },
-      {
-        $lookup: {
-          from: "collaborations",
-          localField: "_id",
-          foreignField: "class",
-          as: "collaborations"
-        }
-      }
-    ]);
+
     res.render("teacher", { title: teacher.name, teacher });
   } catch (e) {
     next(e);
