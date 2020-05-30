@@ -27,7 +27,7 @@ block content
             each clas, i in classes
               tr.clickable-row(data-href='classes/' + clas._id)
                 td #{clas.teacher.name}
-                td #{clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
+                td #{clas.students && clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
                 td #{clas.language}
                 td #{clas.level}
                 td #{clas.type}
