@@ -1,57 +1,78 @@
 extends layout
 
 block content
-	h1 Edit Class
-	ul.errors
-		if errors
-			each error, i in errors
-				li.alert.alert-danger #{error.msg}
-	.row
-		.col-offset-lg-4.col-offset-md-5.col-offset-sm-6.col-lg-4.col-md-5.col-sm-6
-			form(method='post', action=`/classes/${clas._id}`, enctype='application/json')
-				.form-group
-					label Teacher
-					br
-					select.selectpicker(name='teacher', data-live-search="true")
-						each teacher in teachers
-							option(value = teacher._id, selected= teacher._id.toString() === clas.teacher._id.toString()) #{teacher.name}
-				.form-group
-					label Lessons Type
-					br
-					select.selectpicker(name='type')
-						option(selected= clas.type === 'induvidual') induvidual
-						option(selected= clas.type === 'semi-induvidual') semi-induvidual
-						option(selected= clas.type === 'group') group
-				.form-group
-					label Language
-					br
-					select.selectpicker(name='language')
-						option(selected= clas.language ==='English') English
-						option(selected= clas.language ==='German') German
-						option(selected= clas.language ==='Polish') Polish
-				.form-group
-					label Language level
-					br
-					select.selectpicker(name='level')
-						option(selected= clas.level ==='A1') A1
-						option(selected= clas.level ==='B1') B1
-						option(selected= clas.level ==='B2') B2
-						option(selected= clas.level ==='C1') C1
-				.form-group
-				-	var std = clas.students.map( el => el._id.toString());
-					label Select students
-					br
-					select.selectpicker(name='students', data-live-search="true", multiple, data-selected-text-format="count > 2", title="select students for the class...")
-						each student in students
-							option(value = student._id, selected= std.includes(student._id.toString())) #{student.name}
-				.form-group
-					label Price
-					.input-group
-						.input-group-addon ₴
-						input#account.form-control(type='number', name='price', placeholder='Amount', value=`${clas.price}`)
-						.input-group-addon .00
-				.form-group
-					label(for='exampleFormControlTextarea1') Short Notes
-					textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes') #{clas.notes}
-				input.btn.btn-primary.pull-right(name='submit', type='submit', value='Save')
-				a.btn.btn-default.pull-right(href='/classes', role='button') Cancel
+  .col-xs-12
+    .card
+      .card-header
+        h1.card-title #{title}
+      
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href='/classes/' + clas._id)
+      
+      .card-body
+        form(method='post', action=`/classes/${clas._id}`, enctype='application/json')
+          .form-group
+            label Teacher
+            br
+            select.selectpicker(name='teacher', data-live-search="true")
+              each teacher in teachers
+                option(value = teacher._id, selected= teacher._id.toString() === clas.teacher._id.toString()) #{teacher.name}
+          .form-group
+            label Lessons Type
+            br
+            select.selectpicker(name='type')
+              option(selected= clas.type === 'individual') individual
+              option(selected= clas.type === 'semi-individual') semi-individual
+              option(selected= clas.type === 'group') group
+          .form-group
+            label Language
+            br
+            select.selectpicker(name='language')
+              option(selected= clas.language ==='English') English
+              option(selected= clas.language ==='German') German
+              option(selected= clas.language ==='Polish') Polish
+              option(selected= clas.language ==='Japanese') Japanese
+              option(selected= clas.language ==='Chinese') Chinese
+              option(selected= clas.language ==='Spanish') Spanish
+              option(selected= clas.language ==='Italian') Italian
+              option(selected= clas.language ==='Turkish') Turkish
+              option(selected= clas.language ==='Chezh') Chezh
+              option(selected= clas.language ==='Arabian') Arabian
+          .form-group
+            label Language level
+            br
+            select.selectpicker(name='level')
+              option(selected= clas.level ==='Beginner') Beginner
+              option(selected= clas.level ==='Elementary') Elementary
+              option(selected= clas.level ==='Pre-intermediate') Pre-intermediate
+              option(selected= clas.level ==='Intermediate') Intermediate
+              option(selected= clas.level ==='Upper-intermediate') Upper-intermediate
+              option(selected= clas.level ==='Advanced') Advanced
+          .form-group
+          -	var std = clas.students.map( el => el._id.toString());
+            label Select students
+            br
+            select.selectpicker(name='students', data-live-search="true", multiple, data-selected-text-format="count > 2", title="select students for the class...")
+              each student in students
+                option(value = student._id, selected= std.includes(student._id.toString())) #{student.name}
+          .form-group
+            label Price
+            .input-group
+              .input-group-addon ₴
+              input#account.form-control(type='number', name='price', placeholder='Amount', value=`${clas.price}`)
+              .input-group-addon .00
+          .form-group
+            label Coefficient
+            .input-group
+              input#account.form-control(type='number', name='coefficient', placeholder='Amount', value=`${clas.coefficient}`)
+              .input-group-addon %
+          .form-group
+            label(for='exampleFormControlTextarea1') Short Notes
+            textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes') #{clas.notes}
+          input.btn.btn-info(name='submit', type='submit', value='Save')
+          a.btn.btn-default(href='/classes', role='button') Cancel
+
+  ul.errors
+    if errors
+      each error, i in errors
+        li.alert.alert-danger #{error.msg}

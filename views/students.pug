@@ -4,12 +4,11 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6
-            h1.card-title #{title}
-          .col-6.text-right
-            a.btn.btn-primary(href='/students/add', role='button') Add Student
-        
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm(href='/students/add', role='button') Add Student
+       
       .card-body
         .table-responsive
           table.table.table-bordered.table-striped.table-hover(summary="This table shows how to create responsive tables using Bootstrap's default functionality")
@@ -30,4 +29,4 @@ block content
                 td #{student.language}
                 td
                   div.notes #{student.notes}
-                td.text-right #{student.account}₴
+                td #{student.account}₴

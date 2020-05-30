@@ -1,18 +1,24 @@
-// @import './extends/bootstrap-reboot.min';
 @import './extends/bootstrap.min';
-@import './base/fonts';
-@import './base/variables';
-@import './base/layout';
-// @import './base/typography';
+@import './extends/scheduler.min';
+@import './extends/bootstrap-select.min';
+@import './extends/fullcalendar.min';
 
-@import './extends/old-styles';
+@import './base/variables';
+
+@import './override/bootstrap-select.scss';
+@import './override/calendar.scss';
+
+@import './base/print.scss';
+@import './base/fonts';
+@import './base/typography';
+@import './base/layout';
+@import './base/header';
+@import './base/footer';
+
 @import './components/navbar';
 @import './components/button';
 @import './components/card';
 @import './components/notification';
 @import './components/table';
-
-@import './base/header';
-@import './base/footer';
 
 @import './views/student';

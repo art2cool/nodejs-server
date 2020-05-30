@@ -1,3 +1,16 @@
 caption{
   caption-side: unset;
 }
+
+.table-responsive{
+  overflow: auto;
+  max-height: 500px;
+}
+
+.table{
+  td, th {
+    &:last-child{
+      text-align: right;
+    }
+  }
+}

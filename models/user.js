@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcryptjs");
 
 const db = require('./../config/db');
 //User schema
@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
 	password: { type: String, require: true },
 	role: { type: String, enum: ['admin', 'teacher'] },
 	phone: String,
-	coeficient: { type: Number },
 	createAt: { type: Date, default: Date.now }
 });
 

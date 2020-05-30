@@ -4,25 +4,17 @@ block content
   .col-md-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6.text-left
-            .d-flex.align-items-center
-              a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/teachers`)
-              h1.card-title #{title}
-          .col-6.text-right
-            .d-none.d-lg-block
-              .btn-group
-                a.btn.btn-primary(href=`/teachers/${teacher._id}/edit`, role='button')
-                  | Edit Teacher
-            .d-block.d-lg-none
-              a.btn.btn-primary(href=`/teachers/${teacher._id}/edit`, role='button')
-                // - @TODO add edit icon
-                i.icon-cog
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href=`/teachers`)
+        a.btn.btn-info.btn-sm(href=`/teachers/${teacher._id}/edit`, role='button')
+          | Edit Teacher
+            
       .card-body
-        - var teacherData = {'Email': teacher.email, 'Phone': teacher.phone, 'Coeficient': teacher.coeficient}
-        ul.student-info__list
-          each k, v in teacherData
-            li
-              b
-                = v
-              = ': ' + k
+        - var teacherData = {'Email': teacher.email, 'Phone': teacher.phone}
+        each k, v in teacherData
+          p
+            b
+              = v
+            = ': ' + k

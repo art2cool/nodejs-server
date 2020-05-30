@@ -12,12 +12,11 @@ router.get("/add", isAuthorized, (req, res, next) => {
 });
 
 router.post("/", isAdmin, hashingPassword, (req, res, next) => {
-  const { email, name, phone, coeficient, password } = req.body;
+  const { email, name, phone, password } = req.body;
   const teacher = new User({
     email,
     name,
     phone,
-    coeficient,
     role: "teacher",
     password
   });
@@ -46,17 +45,7 @@ router.get("/:id", isManager, async function(req, res, next) {
   const id = req.params.id;
   try {
     const teacher = await User.findById(id);
-    const classes = await Class.aggregate([
-      { $match: { teacher: id } },
-      {
-        $lookup: {
-          from: "collaborations",
-          localField: "_id",
-          foreignField: "class",
-          as: "collaborations"
-        }
-      }
-    ]);
+
     res.render("teacher", { title: teacher.name, teacher });
   } catch (e) {
     next(e);
@@ -82,7 +71,6 @@ router.post("/:id", isAdmin, hashingPassword, async (req, res, next) => {
     email: req.body.email,
     name: req.body.name,
     phone: req.body.phone,
-    coeficient: req.body.coeficient
   };
 
   if (req.body.password) {

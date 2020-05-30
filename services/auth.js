@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 module.exports.hashingPassword =(req, res, next) => {
     if (!req.body.password) {

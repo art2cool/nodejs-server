@@ -9,5 +9,9 @@
   }
 
   color: $snow;
-  background-color: $primary-color;
+  background-color: $night;
+
+  .copyright{
+    background-color: rgba($night, .6);
+  }
 }

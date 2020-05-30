@@ -4,15 +4,15 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6
-            h1.card-title #{title}
-          .col-6.text-right
-            a.btn.btn-primary.pull-right(href='/classes/add', role='button') Create Class
+        h1.card-title #{title}
+
+      if user.role === 'admin'
+        .card-controls
+          a.btn.btn-info.btn-sm(href='/classes/add', role='button') Create Class
+      
       .card-body
         .table-responsive
           table.table.table-bordered.table-striped.table-hover(summary="ap's default functionality")
-            //- caption.text-center List of classes can edit everyone of them
             thead
               tr
                 th Teacher
@@ -20,15 +20,18 @@ block content
                 th Language
                 th Level
                 th Type
+                if user.role === 'admin'
+                  th Coefficient
                 th Notes
             tbody
             each clas, i in classes
               tr.clickable-row(data-href='classes/' + clas._id)
                 td #{clas.teacher.name}
-                td #{clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
+                td #{clas.students && clas.students.length ? clas.students.map(el => el.name).join(',') : 'no students'}
                 td #{clas.language}
                 td #{clas.level}
                 td #{clas.type}
+                if user.role === 'admin'
+                  td #{clas.coefficient}
                 td
                   div.notes #{clas.notes}
-                  

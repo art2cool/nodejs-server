@@ -17,10 +17,14 @@
 
   a{
     color: $snow;
+    transition: $default-transition;
+
+    &:hover{
+      color: $primary-color;
+    }
   }
 
   .active a{
-    color: $night;
-    background-color: $snow;
+    color: $primary-color;
   }
 }

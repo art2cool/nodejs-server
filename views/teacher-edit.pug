@@ -4,33 +4,34 @@ block content
   .col-md-12
     .card
       .card-header
-        h1.card-title Edit
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big.mr-3(href='/teachers/' + teacher._id)
+
       .card-body
-        .errors.notification-wrapper
-          if errors
-            each error, i in errors
-              .alert.alert-danger.alert-dismissible.fade.show(role='alert')
-                button.close(type='button', data-dismiss='alert', aria-label='Close')
-                  span(aria-hidden='true') &times;
-                span #{error.msg}
-        .row
-          .col-xs-12.col-md-6.offset-md-3
-            // - no verification?
-            form(method='post', action=`/teachers/${teacher._id}`, enctype='application/json')
-              .form-group
-                label Name
-                input.form-control(type='text', name='name', placeholder='Enter teacher Name', value=`${teacher.name}`)
-              .form-group
-                label Email
-                input.form-control(type='email', name='email', placeholder='Enter contact Email', value=`${teacher.email}`)
-              .form-group
-                label Phone
-                input.form-control(type='text', name='phone', placeholder='Enter contact phone', value=`${teacher.phone}`)
-              .form-group
-                label New Password
-                input.form-control(type='password', name='password', placeholder='Enter new password')
-              .form-group
-                label Coeficient
-                input.form-control(type='number', name='coeficient', value=`${teacher.coeficient}`)
-              input.btn.btn-primary(name='submit', type='submit', value='Save')
-              a.btn.btn-light.ml-3(href='/teachers', role='button') Cancel
+        .table-responsive
+          // - @TODO: add verification
+          form(method='post', action=`/teachers/${teacher._id}`, enctype='application/json')
+            .form-group
+              label Name
+              input.form-control(type='text', name='name', placeholder='Enter teacher Name', value=`${teacher.name}`)
+            .form-group
+              label Email
+              input.form-control(type='email', name='email', placeholder='Enter contact Email', value=`${teacher.email}`)
+            .form-group
+              label Phone
+              input.form-control(type='text', name='phone', placeholder='Enter contact phone', value=`${teacher.phone}`)
+            .form-group
+              label New Password
+              input.form-control(type='password', name='password', placeholder='Enter new password')
+            input.btn.btn-info(name='submit', type='submit', value='Save')
+            a.btn.btn-default(href='/teachers', role='button') Cancel
+
+  .errors.notification-wrapper
+    if errors
+      each error, i in errors
+        .alert.alert-danger.alert-dismissible.fade.show(role='alert')
+          button.close(type='button', data-dismiss='alert', aria-label='Close')
+            span(aria-hidden='true') &times;
+          span #{error.msg}

@@ -4,58 +4,65 @@ block content
   .col-xs-12
     .card
       .card-header
-        .row.align-items-center
-          .col-6.text-left
-            .d-flex.align-items-center
-              a.btn.btn-outline-secondary.btn-sm.icon-left-big.mr-3(href=`/students`)
-              h1.card-title
-                | #{title}
+        h1.card-title #{title}
+
+      .card-controls
+        a.btn.btn-info.btn-sm.icon-left-big(href=`/students`)
+      
       .card-body
-        .errors.notification-wrapper
-          if errors
-            each error, i in errors
-              .alert.alert-danger.alert-dismissible.fade.show(role='alert')
-                button.close(type='button', data-dismiss='alert', aria-label='Close')
-                  span(aria-hidden='true') &times;
-                span #{error.msg}
-        .row
-          .col-xs-12.col-md-6.offset-md-3
-            form(method='post', action='/students', enctype='application/json')
-              .form-group
-                label Name
-                input.form-control(type='text', name='name', placeholder='Enter Student Name')
-              .form-group
-                label Email
-                input.form-control(type='email', name='email', placeholder='Enter contact Email')
-              .form-group
-                label Phone
-                input.form-control(type='text', name='phone', placeholder='Enter contact phone')
-              .form-group
-                label Language
-                br
-                select.selectpicker(name='language')
-                  option English
-                  option German
-                  option Polish
-              .form-group
-                label Language level
-                br
-                // - @TODO check this selectpicker
-                select.selectpicker(name='level')
-                  option A1
-                  option B1
-                  option C1
-              .form-group
-                label Day of birth
-                input.form-control(type='date', name='dayOfBirth',)
-              .form-group
-                label Account (in UAH)
-                .input-group.align-items-center
-                  .input-group-addon.mr-3 ₴
-                  input#account.form-control(type='number', name='account', placeholder='Amount')
-                  .input-group-addon.ml-3 .00
-              .form-group
-                label(for='exampleFormControlTextarea1') Short Notes
-                textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes')
-              input.btn.btn-primary(name='submit', type='submit', value=title)
-              a.btn.btn-light.ml-3(href='/students', role='button') Cancel
+        form(method='post', action='/students', enctype='application/json')
+          .form-group
+            label Name
+            input.form-control(type='text', name='name', placeholder='Enter Student Name')
+          .form-group
+            label Email
+            input.form-control(type='email', name='email', placeholder='Enter contact Email')
+          .form-group
+            label Phone
+            input.form-control(type='text', name='phone', placeholder='Enter contact phone')
+          .form-group
+            label Language
+            br
+            select.selectpicker(name='language')
+              option English
+              option German
+              option Polish
+              option Japanese
+              option Chinese
+              option Spanish
+              option Italian
+              option Turkish
+              option Chezh
+              option Arabian
+          .form-group
+            label Language level
+            br
+            select.selectpicker(name='level')
+              option Beginner
+              option Elementary
+              option Pre-intermediate
+              option Intermediate
+              option Upper-intermediate
+              option Advanced
+          .form-group
+            label Day of birth
+            input.form-control(type='date', name='dayOfBirth',)
+          .form-group
+            label Account (in UAH)
+            .input-group.align-items-center
+              .input-group-addon.mr-3 ₴
+              input#account.form-control(type='number', name='account', placeholder='Amount')
+              .input-group-addon.ml-3 .00
+          .form-group
+            label(for='exampleFormControlTextarea1') Short Notes
+            textarea#exampleFormControlTextarea1.form-control(rows='4', name='notes')
+          input.btn.btn-info(name='submit', type='submit', value=title)
+          a.btn.btn-default.ml-3(href='/students', role='button') Cancel
+
+  .errors.notification-wrapper
+    if errors
+      each error, i in errors
+        .alert.alert-danger.alert-dismissible.fade.show(role='alert')
+          button.close(type='button', data-dismiss='alert', aria-label='Close')
+            span(aria-hidden='true') &times;
+          span #{error.msg}
