@@ -19,7 +19,7 @@
     "express-session": "*",
     "express-validator": "*",
     "faker": "4.1.0",
-    "moment": "2.22.2",
+    "moment": "2.29.4",
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "1.6.1",
